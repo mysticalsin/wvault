@@ -77,7 +77,7 @@ export default function MediaGallery() {
             setPlayingMedia(file);
         } else {
             if (confirm(`Download/Open "${file.name}"?`)) {
-                await window.wvault.saveAttachment(file.id);
+                await window.wvault.saveAttachment(file.file_id);
             }
         }
     };

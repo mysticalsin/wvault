@@ -13,7 +13,7 @@
  * @security-level Maximum
  */
 
-const { app, BrowserWindow, ipcMain, dialog, Menu, shell, clipboard, globalShortcut } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, Menu, shell, clipboard, globalShortcut, protocol } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
@@ -934,6 +934,11 @@ function registerIpcHandlers() {
             const folders = result[0].values.map(row => {
                 const obj = {};
                 columns.forEach((col, i) => { obj[col] = row[i]; });
+                // Compute locked property from password_hash presence
+                obj.locked = !!obj.password_hash;
+                // Don't expose the hash or salt to the renderer
+                delete obj.password_hash;
+                delete obj.password_salt;
                 return obj;
             });
             return { success: true, folders };
@@ -1671,10 +1676,10 @@ function createWindow() {
                     "default-src 'self'; " +
                     "script-src 'self'; " +
                     "style-src 'self' 'unsafe-inline'; " +
-                    "img-src 'self' data: https://icons.duckduckgo.com https://*.duckduckgo.com; " +
+                    "img-src 'self' data: glass-media: https://icons.duckduckgo.com https://*.duckduckgo.com; " +
                     "font-src 'self'; " +
                     "connect-src 'self' https://icons.duckduckgo.com; " +
-                    "media-src 'self'; " +
+                    "media-src 'self' glass-media:; " +
                     "object-src 'none'; " +
                     "frame-src 'none'; " +
                     "base-uri 'self'; " +
@@ -1728,6 +1733,61 @@ if (!gotTheLock) {
     app.whenReady().then(async () => {
         await init();
         registerIpcHandlers();
+
+        // Register glass-media:// protocol to serve encrypted attachments
+        protocol.handle('glass-media', async (request) => {
+            try {
+                const fileId = new URL(request.url).hostname;
+                if (!fileId || !/^[a-f0-9]+$/.test(fileId)) {
+                    return new Response('Invalid file ID', { status: 400 });
+                }
+
+                const filePath = path.join(getAttachmentsDir(), fileId);
+                if (!fs.existsSync(filePath)) {
+                    return new Response('File not found', { status: 404 });
+                }
+
+                // Check if file is encrypted
+                const result = state.db?.exec(
+                    "SELECT type, encrypted FROM attachments WHERE file_id = ?",
+                    [fileId]
+                );
+                const fileType = result?.[0]?.values?.[0]?.[0] || '';
+                const isEncrypted = result?.[0]?.values?.[0]?.[1];
+
+                let fileData;
+                if (isEncrypted && state.encryptionKey) {
+                    const encryptedData = fs.readFileSync(filePath);
+                    const fileKey = deriveAttachmentKey(state.encryptionKey, fileId);
+                    try {
+                        fileData = decryptAttachment(encryptedData, fileKey);
+                    } finally {
+                        fileKey.fill(0);
+                    }
+                } else {
+                    fileData = fs.readFileSync(filePath);
+                }
+
+                // Map file extension to MIME type
+                const mimeMap = {
+                    '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
+                    '.gif': 'image/gif', '.mp4': 'video/mp4', '.mov': 'video/quicktime',
+                    '.avi': 'video/x-msvideo', '.mkv': 'video/x-matroska',
+                    '.pdf': 'application/pdf', '.doc': 'application/msword',
+                    '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                    '.txt': 'text/plain'
+                };
+                const mimeType = mimeMap[fileType] || 'application/octet-stream';
+
+                return new Response(fileData, {
+                    headers: { 'Content-Type': mimeType }
+                });
+            } catch (e) {
+                console.error('[glass-media] Protocol error:', e);
+                return new Response('Internal error', { status: 500 });
+            }
+        });
+
         createWindow();
 
         // Register global shortcuts
