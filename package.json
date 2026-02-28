@@ -1,0 +1,94 @@
+{
+  "name": "wvault",
+  "version": "5.1.0",
+  "author": "Tony Walteur",
+  "description": "WVault — Zero-knowledge password manager with biometric authentication",
+  "main": "main.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:vite\" \"npm run dev:electron\"",
+    "dev:vite": "vite",
+    "dev:electron": "wait-on http://localhost:5173 && electron .",
+    "build": "vite build",
+    "dist": "npm run build && electron-builder",
+    "dist:mac": "npm run build && electron-builder --mac",
+    "dist:win": "npm run build && electron-builder --win",
+    "dist:all": "npm run build && electron-builder -mw",
+    "start": "electron .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "csv-parse": "^6.1.0",
+    "framer-motion": "^12.34.0",
+    "jimp": "^1.6.0",
+    "jsqr": "^1.4.0",
+    "lucide-react": "^0.469.0",
+    "png-to-ico": "^3.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sql.js": "^1.11.0",
+    "tailwind-merge": "^3.4.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.2",
+    "electron": "^33.3.1",
+    "electron-builder": "^26.7.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "vite": "^6.0.7",
+    "vitest": "^4.0.18",
+    "wait-on": "^8.0.3"
+  },
+  "build": {
+    "appId": "com.wvault.app",
+    "productName": "WVault",
+    "copyright": "Copyright © 2026 Tony Walteur",
+    "directories": {
+      "output": "dist_electron"
+    },
+    "files": [
+      "dist/**/*",
+      "main.js",
+      "preload.js",
+      "totp.js",
+      "src/main/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "resources/logos",
+        "to": "logos"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "verifyUpdateCodeSignature": false,
+      "signAndEditExecutable": false,
+      "icon": "resources/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "WVault",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": true
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "resources/icon.icns",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "resources/icons",
+      "category": "Security"
+    }
+  }
+}

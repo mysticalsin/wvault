@@ -1,0 +1,542 @@
+/**
+ * ============================================================================
+ * WVAULT MICRO-INTERACTIONS
+ * Phase 3: Micro-Interaction Physics
+ * ============================================================================
+ * 
+ * Timing Functions:
+ * - Instant: 0ms (no animation)
+ * - Micro: 100ms (button states, toggles)
+ * - Fast: 200ms (hover, tooltips)
+ * - Normal: 300ms (modals, dropdowns)
+ * - Slow: 500ms (page transitions, complex reveals)
+ * 
+ * Easing Curves:
+ * - Standard: ease-in-out
+ * - Decelerate: ease-out (entering)
+ * - Accelerate: ease-in (exiting)
+ * - Spring: cubic-bezier(0.34, 1.56, 0.64, 1) (bouncy)
+ */
+
+/* ==========================================================================
+   BUTTON MICRO-INTERACTIONS
+   ========================================================================== */
+
+/* Base Button State Transition */
+.btn-interactive {
+    transition: 
+        transform 150ms cubic-bezier(0.4, 0, 0.2, 1),
+        background-color 200ms ease,
+        box-shadow 200ms ease,
+        border-color 200ms ease;
+    will-change: transform;
+}
+
+/* Hover: Lift Effect */
+.btn-interactive:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+/* Active: Press Effect */
+.btn-interactive:active:not(:disabled) {
+    transform: translateY(0) scale(0.98);
+    transition-duration: 100ms;
+}
+
+/* Primary Button: Glow Expansion */
+.btn-primary-interactive {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary-interactive::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: inherit;
+    filter: blur(12px);
+    opacity: 0;
+    transition: opacity 300ms ease;
+    z-index: -1;
+}
+
+.btn-primary-interactive:hover::after {
+    opacity: 0.5;
+}
+
+/* Loading State: Spinner Animation */
+@keyframes btnSpinner {
+    to { transform: rotate(360deg); }
+}
+
+.btn-loading .spinner {
+    animation: btnSpinner 1s linear infinite;
+}
+
+/* Success State: Check Animation */
+@keyframes checkStroke {
+    from { stroke-dashoffset: 20; }
+    to { stroke-dashoffset: 0; }
+}
+
+.btn-success .check-icon path {
+    stroke-dasharray: 20;
+    stroke-dashoffset: 20;
+    animation: checkStroke 300ms ease forwards;
+}
+
+/* ==========================================================================
+   CARD MICRO-INTERACTIONS
+   ========================================================================== */
+
+/* Card Lift on Hover */
+.card-interactive {
+    transition: 
+        transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 300ms ease,
+        border-color 200ms ease;
+    will-change: transform;
+}
+
+.card-interactive:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.card-interactive:active {
+    transform: translateY(-2px) scale(0.995);
+    transition-duration: 100ms;
+}
+
+/* Card Shine Effect */
+.card-shine {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-shine::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.05),
+        transparent
+    );
+    transition: left 500ms ease;
+}
+
+.card-shine:hover::before {
+    left: 100%;
+}
+
+/* ==========================================================================
+   INPUT MICRO-INTERACTIONS
+   ========================================================================== */
+
+/* Input Focus: Border Glow */
+.input-interactive {
+    transition: 
+        border-color 200ms ease,
+        box-shadow 200ms ease,
+        background-color 200ms ease;
+}
+
+.input-interactive:focus {
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* Label Float Animation */
+.input-wrapper-floating {
+    position: relative;
+}
+
+.input-wrapper-floating label {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.5);
+    transition: 
+        top 200ms ease,
+        font-size 200ms ease,
+        color 200ms ease;
+    pointer-events: none;
+}
+
+.input-wrapper-floating input:focus + label,
+.input-wrapper-floating input:not(:placeholder-shown) + label {
+    top: 8px;
+    font-size: 12px;
+    color: rgba(99, 102, 241, 0.8);
+}
+
+/* Password Strength: Bar Animation */
+@keyframes strengthGrow {
+    from { width: 0; }
+}
+
+.strength-bar-fill {
+    animation: strengthGrow 400ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ==========================================================================
+   TOGGLE MICRO-INTERACTIONS
+   ========================================================================== */
+
+/* Toggle Switch: Spring Animation */
+.toggle-interactive {
+    transition: background-color 300ms ease;
+}
+
+.toggle-interactive .thumb {
+    transition: transform 450ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Toggle Bounce on Check */
+@keyframes toggleBounce {
+    0%, 100% { transform: translateX(24px) scale(1); }
+    50% { transform: translateX(24px) scale(1.2); }
+}
+
+.toggle-interactive:checked .thumb {
+    animation: toggleBounce 300ms ease;
+}
+
+/* ==========================================================================
+   MODAL MICRO-INTERACTIONS
+   ========================================================================== */
+
+/* Modal Entry: Scale + Fade */
+@keyframes modalEnter {
+    0% {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.modal-enter {
+    animation: modalEnter 300ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Modal Exit: Fade Only */
+@keyframes modalExit {
+    to {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+}
+
+.modal-exit {
+    animation: modalExit 200ms ease forwards;
+}
+
+/* Backdrop Blur Transition */
+.modal-backdrop {
+    transition: backdrop-filter 300ms ease, background-color 300ms ease;
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATION MICRO-INTERACTIONS
+   ========================================================================== */
+
+/* Toast Entry: Slide + Bounce */
+@keyframes toastEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    70% {
+        transform: translateY(-4px) scale(1.01);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.toast-enter {
+    animation: toastEnter 400ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Toast Exit: Slide Out */
+@keyframes toastExit {
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+.toast-exit {
+    animation: toastExit 300ms ease forwards;
+}
+
+/* Toast Progress Bar */
+@keyframes toastProgress {
+    to { width: 0%; }
+}
+
+.toast-progress {
+    animation: toastProgress 3s linear forwards;
+}
+
+/* ==========================================================================
+   LIST ITEM MICRO-INTERACTIONS
+   ========================================================================== */
+
+/* List Item Slide In (Staggered) */
+@keyframes listItemEnter {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.list-item-enter {
+    animation: listItemEnter 300ms ease forwards;
+    animation-delay: var(--stagger-delay, 0ms);
+}
+
+/* List Item Delete: Slide Out */
+@keyframes listItemExit {
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+        height: 0;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.list-item-exit {
+    animation: listItemExit 300ms ease forwards;
+}
+
+/* ==========================================================================
+   LOADING MICRO-INTERACTIONS
+   ========================================================================== */
+
+/* Skeleton Shimmer */
+@keyframes skeletonShimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.skeleton-shimmer {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.03) 25%,
+        rgba(255, 255, 255, 0.06) 50%,
+        rgba(255, 255, 255, 0.03) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s infinite;
+}
+
+/* Spinner: Smooth Rotation */
+@keyframes spinnerRotate {
+    to { transform: rotate(360deg); }
+}
+
+.spinner-smooth {
+    animation: spinnerRotate 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Dots Bounce (Typing Indicator) */
+@keyframes dotBounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+.loading-dots span {
+    animation: dotBounce 1.4s ease-in-out infinite both;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+/* ==========================================================================
+   SCROLL MICRO-INTERACTIONS
+   ========================================================================== */
+
+/* Smooth Scroll Behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Scroll Snap */
+.scroll-snap-x {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.scroll-snap-x > * {
+    scroll-snap-align: start;
+}
+
+/* Fade Edges on Scroll */
+.scroll-fade-edges {
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 20px,
+        black calc(100% - 20px),
+        transparent
+    );
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 20px,
+        black calc(100% - 20px),
+        transparent
+    );
+}
+
+/* ==========================================================================
+   FOCUS MICRO-INTERACTIONS
+   ========================================================================== */
+
+/* Focus Ring Animation */
+@keyframes focusPulse {
+    0%, 100% { box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5); }
+    50% { box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.3); }
+}
+
+.focus-ring-animated:focus-visible {
+    animation: focusPulse 2s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   HOVER MICRO-INTERACTIONS
+   ========================================================================== */
+
+/* Icon Scale on Hover */
+.icon-scale {
+    transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.icon-scale:hover {
+    transform: scale(1.15);
+}
+
+/* Text Slide Up Reveal */
+.text-slide {
+    position: relative;
+    overflow: hidden;
+}
+
+.text-slide span {
+    display: block;
+    transition: transform 300ms ease;
+}
+
+.text-slide::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    transition: transform 300ms ease;
+}
+
+.text-slide:hover span,
+.text-slide:hover::after {
+    transform: translateY(-100%);
+}
+
+/* Image Zoom on Hover */
+.img-zoom {
+    overflow: hidden;
+}
+
+.img-zoom img {
+    transition: transform 500ms ease;
+}
+
+.img-zoom:hover img {
+    transform: scale(1.05);
+}
+
+/* ==========================================================================
+   REDUCED MOTION SUPPORT
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .btn-interactive:hover:not(:disabled) {
+        transform: none;
+    }
+    
+    .card-interactive:hover {
+        transform: none;
+    }
+    
+    .card-shine::before {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   UTILITY CLASSES
+   ========================================================================== */
+
+/* Instant (No Animation) */
+.duration-instant {
+    transition-duration: 0ms;
+}
+
+/* Micro (100ms) */
+.duration-micro {
+    transition-duration: 100ms;
+}
+
+/* Fast (200ms) */
+.duration-fast {
+    transition-duration: 200ms;
+}
+
+/* Normal (300ms) */
+.duration-normal {
+    transition-duration: 300ms;
+}
+
+/* Slow (500ms) */
+.duration-slow {
+    transition-duration: 500ms;
+}
+
+/* Easing Functions */
+.ease-standard {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ease-decelerate {
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.ease-accelerate {
+    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+
+.ease-spring {
+    transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}

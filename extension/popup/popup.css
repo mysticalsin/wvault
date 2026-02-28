@@ -1,0 +1,316 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #0f0f1a;
+  color: #fff;
+  min-width: 320px;
+  min-height: 400px;
+}
+
+.container {
+  padding: 16px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 16px;
+}
+
+.logo {
+  font-size: 28px;
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  flex: 1;
+}
+
+.status {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.1);
+}
+
+.status.connected {
+  background: rgba(34,197,94,0.2);
+  color: #22c55e;
+}
+
+.status.error {
+  background: rgba(239,68,68,0.2);
+  color: #ef4444;
+}
+
+/* States */
+.state {
+  text-align: center;
+  padding: 24px 0;
+}
+
+.state.hidden {
+  display: none;
+}
+
+.icon-large {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.state h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.state p {
+  font-size: 14px;
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(99,102,241,0.4);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.btn-full {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.btn-text {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 8px;
+  transition: color 0.2s;
+}
+
+.btn-text:hover {
+  color: #fff;
+}
+
+/* Connected State */
+.current-site {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.site-icon {
+  font-size: 24px;
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.site-info {
+  flex: 1;
+}
+
+.site-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  word-break: break-all;
+}
+
+.site-creds {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+.actions {
+  margin-bottom: 16px;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  margin: 16px 0;
+}
+
+/* Credentials List */
+.credentials-list {
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.credential-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.credential-item:hover {
+  background: rgba(99,102,241,0.1);
+  border-color: rgba(99,102,241,0.3);
+}
+
+.cred-icon {
+  font-size: 18px;
+}
+
+.cred-info {
+  flex: 1;
+  overflow: hidden;
+}
+
+.cred-title {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cred-username {
+  font-size: 12px;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cred-action {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.credential-item:hover .cred-action {
+  opacity: 1;
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin-top: 8px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+/* Generated password display */
+.password-result {
+  background: rgba(0,0,0,0.3);
+  padding: 12px;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 14px;
+  word-break: break-all;
+  margin: 12px 0;
+  border: 1px solid rgba(99,102,241,0.3);
+}
+
+.copy-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+}

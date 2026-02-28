@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WVault</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="logo">🔐</div>
+      <div class="title">WVault</div>
+      <div class="status" id="status">Checking...</div>
+    </div>
+    
+    <!-- Not Connected State -->
+    <div id="not-connected" class="state hidden">
+      <div class="icon-large">💻</div>
+      <h3>WVault Desktop Not Found</h3>
+      <p>Please ensure WVault desktop app is running</p>
+      <button id="retry-btn" class="btn-primary">Retry Connection</button>
+    </div>
+    
+    <!-- Not Authenticated State -->
+    <div id="not-authenticated" class="state hidden">
+      <div class="icon-large">🔒</div>
+      <h3>Authentication Required</h3>
+      <p>Approve this browser in WVault desktop app</p>
+      <button id="auth-btn" class="btn-primary">Connect to WVault</button>
+    </div>
+    
+    <!-- Connected State -->
+    <div id="connected" class="state hidden">
+      <div class="current-site">
+        <div class="site-icon" id="site-icon">🌐</div>
+        <div class="site-info">
+          <div class="site-name" id="site-name">example.com</div>
+          <div class="site-creds" id="site-creds">0 credentials saved</div>
+        </div>
+      </div>
+      
+      <div class="actions">
+        <button id="fill-btn" class="btn-primary btn-full">
+          <span>🔐</span> AutoFill Login
+        </button>
+        <button id="generate-btn" class="btn-secondary btn-full">
+          <span>⚡</span> Generate Password
+        </button>
+      </div>
+      
+      <div class="divider"></div>
+      
+      <div class="credentials-list" id="credentials-list">
+        <!-- Filled dynamically -->
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+      <button id="settings-btn" class="btn-text">⚙️ Settings</button>
+      <button id="lock-btn" class="btn-text">🔒 Lock</button>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

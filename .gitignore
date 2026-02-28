@@ -1,0 +1,63 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist_electron/
+
+# Installer binaries (distributed via GitHub Releases, not the repo)
+*.exe
+*.dmg
+*.AppImage
+*.deb
+
+# Vault data (NEVER commit user vault files)
+*.vault
+*.vault.tmp
+*.vault.backup
+*.db
+*.db-shm
+*.db-wal
+wvault.db
+crash_log.txt
+
+# Electron builder cache
+.cache/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Icon conversion scripts (dev-only)
+convert-icon.js
+convert_icon_v2.js
+fix-icon.js
+
+# Backup files
+*.backup
+main.js.backup
+preload.js.backup
+
+# Electron builder temp
+builder-debug.yml
+builder-effective-config.yaml
+
+# Temporary test artifacts
+/tmp/

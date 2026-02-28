@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WVault Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">🔐</div>
+        <h1>WVault</h1>
+      </div>
+      <nav>
+        <a href="#general" class="nav-item active">⚙️ General</a>
+        <a href="#security" class="nav-item">🔒 Security</a>
+        <a href="#about" class="nav-item">ℹ️ About</a>
+      </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main">
+      <!-- General Settings -->
+      <section id="general" class="section">
+        <h2>General Settings</h2>
+        
+        <div class="card">
+          <h3>Connection</h3>
+          <div class="setting">
+            <div class="setting-info">
+              <label>WVault Desktop Host</label>
+              <p>Localhost port where WVault desktop app runs</p>
+            </div>
+            <input type="text" id="host-setting" value="http://localhost:9333" readonly>
+          </div>
+          
+          <div class="setting">
+            <div class="setting-info">
+              <label>Auto-detect login forms</label>
+              <p>Show autofill icon when login forms are detected</p>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="auto-detect" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>Autofill Behavior</h3>
+          <div class="setting">
+            <div class="setting-info">
+              <label>Auto-fill on page load</label>
+              <p>Automatically fill credentials when only one match exists</p>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="auto-fill">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          
+          <div class="setting">
+            <div class="setting-info">
+              <label>Show autofill icon</label>
+              <p>Display WVault icon near login fields</p>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="show-icon" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Security -->
+      <section id="security" class="section hidden">
+        <h2>Security</h2>
+        
+        <div class="card">
+          <h3>Session Management</h3>
+          <p style="color: #94a3b8; margin-bottom: 16px;">
+            The extension maintains a secure session with the WVault desktop app.
+            Your credentials are never stored in the browser.
+          </p>
+          
+          <button id="clear-session" class="btn-danger">
+            🗑️ Clear Session & Lock
+          </button>
+        </div>
+        
+        <div class="card">
+          <h3>Connected Extension ID</h3>
+          <p style="color: #94a3b8; margin-bottom: 12px;">
+            This unique ID identifies your browser to the WVault desktop app.
+          </p>
+          <code id="ext-id" style="display:block;padding:12px;background:rgba(0,0,0,0.3);border-radius:8px;font-family:monospace;font-size:12px;word-break:break-all;">
+            Loading...
+          </code>
+        </div>
+      </section>
+      
+      <!-- About -->
+      <section id="about" class="section hidden">
+        <h2>About WVault Extension</h2>
+        
+        <div class="card">
+          <div class="about-header">
+            <div class="about-logo">🔐</div>
+            <div>
+              <h3>WVault Browser Extension</h3>
+              <p class="version">Version 1.0.0</p>
+            </div>
+          </div>
+          
+          <p style="color: #94a3b8; line-height: 1.6;">
+            WVault Browser Extension provides secure password autofill by connecting
+            to your local WVault desktop application. Your credentials are encrypted
+            and stored only in your local vault - never in the browser or cloud.
+          </p>
+          
+          <div class="links">
+            <a href="#" class="link">📖 Documentation</a>
+            <a href="#" class="link">🐛 Report Issue</a>
+            <a href="#" class="link">💬 Support</a>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>How It Works</h3>
+          <ol class="feature-list">
+            <li>Extension detects login forms on websites</li>
+            <li>Securely queries your local WVault desktop app</li>
+            <li>Displays matching credentials (if any)</li>
+            <li>Fills credentials only when you choose</li>
+          </ol>
+        </div>
+      </section>
+    </main>
+  </div>
+  
+  <script src="options.js"></script>
+</body>
+</html>

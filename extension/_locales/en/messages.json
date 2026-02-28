@@ -1,0 +1,34 @@
+{
+  "appName": {
+    "message": "WVault Autofill",
+    "description": "Extension name"
+  },
+  "appDescription": {
+    "message": "Secure password autofill for WVault - Connects to your local WVault desktop app",
+    "description": "Extension description"
+  },
+  "popupTitle": {
+    "message": "WVault",
+    "description": "Popup title"
+  },
+  "notConnected": {
+    "message": "WVault Desktop Not Found",
+    "description": "Not connected message"
+  },
+  "notAuthenticated": {
+    "message": "Authentication Required",
+    "description": "Not authenticated message"
+  },
+  "connected": {
+    "message": "Connected",
+    "description": "Connected status"
+  },
+  "autofillButton": {
+    "message": "AutoFill Login",
+    "description": "Autofill button text"
+  },
+  "generatePassword": {
+    "message": "Generate Password",
+    "description": "Generate password button"
+  }
+}
