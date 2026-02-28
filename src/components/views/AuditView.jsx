@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { ShieldAlert, ShieldCheck, AlertTriangle, CheckCircle, ArrowRight, Loader2, RefreshCw, Telescope } from 'lucide-react';
-import Observatory from './Observatory';
+import Observatory from '../ui/Observatory';
 
 export default function AuditView({ items, onEdit }) {
     const [activeTab, setActiveTab] = useState('doctor'); // 'doctor' | 'observatory'

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Lock } from 'lucide-react';
-import Particles from './3d/Particles';
+import Particles from '../3d/Particles';
 
 export default function PinScreen({ onUnlock, onLogout }) {
     const [pin, setPin] = useState('');

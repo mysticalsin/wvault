@@ -3,7 +3,7 @@ import {
     X, Save, Lock, User, Globe, FileText, CreditCard, StickyNote, KeyRound, ShieldCheck, Eye, EyeOff,
     Briefcase, ShoppingBag, Film, Mail, DollarSign, LayoutGrid, Hash, Clock, RotateCcw, QrCode, Paperclip, Download, Trash2, RefreshCw, Gamepad2, Check
 } from 'lucide-react';
-import PasswordStrength, { getStrength } from './PasswordStrength';
+import PasswordStrength, { getStrength } from '../ui/PasswordStrength';
 
 // ─── Game Platforms ────────────────────────────────────────────────────────
 const GAME_PLATFORMS = [

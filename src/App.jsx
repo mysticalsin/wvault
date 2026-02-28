@@ -1,20 +1,20 @@
 import React, { useState, useEffect, useCallback, Suspense, lazy } from 'react';
-import Layout from './components/Layout';
-import Dashboard from './components/Dashboard';
-import LoginScreen from './components/LoginScreen';
-import PinScreen from './components/PinScreen';
-import AddEditModal from './components/AddEditModal';
-import ImportModal from './components/ImportModal';
-import ConfirmDialog from './components/ConfirmDialog';
-import GlassOverlay from './components/GlassOverlay';
+import Layout from './components/layout/Layout';
+import Dashboard from './components/views/Dashboard';
+import LoginScreen from './components/auth/LoginScreen';
+import PinScreen from './components/auth/PinScreen';
+import AddEditModal from './components/modals/AddEditModal';
+import ImportModal from './components/modals/ImportModal';
+import ConfirmDialog from './components/modals/ConfirmDialog';
+import GlassOverlay from './components/ui/GlassOverlay';
 
 // OPTIMIZATION: Lazy load heavy components for better initial load time
-const VaultView = lazy(() => import('./components/VaultView'));
-const GeneratorView = lazy(() => import('./components/GeneratorView'));
-const SettingsView = lazy(() => import('./components/SettingsView'));
-const AuditView = lazy(() => import('./components/AuditView'));
-const MediaGallery = lazy(() => import('./components/MediaGallery.jsx'));
-const NoteEditor = lazy(() => import('./components/NoteEditor'));
+const VaultView = lazy(() => import('./components/views/VaultView'));
+const GeneratorView = lazy(() => import('./components/views/GeneratorView'));
+const SettingsView = lazy(() => import('./components/views/SettingsView'));
+const AuditView = lazy(() => import('./components/views/AuditView'));
+const MediaGallery = lazy(() => import('./components/views/MediaGallery.jsx'));
+const NoteEditor = lazy(() => import('./components/views/NoteEditor'));
 
 // Loading fallback component
 const PageLoader = () => (

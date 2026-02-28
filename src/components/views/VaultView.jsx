@@ -5,8 +5,8 @@ import {
     Copy, Clock, Star, ExternalLink, Eye, EyeOff, Trash2, RefreshCw
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import CreditCard from './CreditCard';
-import TotpDisplay from './TotpDisplay';
+import CreditCard from '../ui/CreditCard';
+import TotpDisplay from '../ui/TotpDisplay';
 
 // PERFORMANCE: Pagination constants for large vaults
 const ITEMS_PER_PAGE = 50;

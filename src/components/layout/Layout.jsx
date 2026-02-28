@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import TitleBar from './TitleBar';
 import Sidebar from './Sidebar';
-import Particles from './3d/Particles';
+import Particles from '../3d/Particles';
 
 // Toast Component
 const Toast = ({ message, progress }) => (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useTilt } from '../hooks/useTilt';
+import { useTilt } from '../../hooks/useTilt';
 import { CreditCard as CardIcon } from 'lucide-react';
 
 export default function CreditCard({ card, showDetails = false }) {
