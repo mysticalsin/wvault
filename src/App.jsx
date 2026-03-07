@@ -15,6 +15,7 @@ const SettingsView = lazy(() => import('./components/views/SettingsView'));
 const AuditView = lazy(() => import('./components/views/AuditView'));
 const MediaGallery = lazy(() => import('./components/views/MediaGallery.jsx'));
 const NoteEditor = lazy(() => import('./components/views/NoteEditor'));
+const EncryptedVaultView = lazy(() => import('./components/views/EncryptedVaultView'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -22,6 +23,43 @@ const PageLoader = () => (
         <div className="w-8 h-8 border-2 border-accent/30 border-t-accent rounded-full animate-spin" />
     </div>
 );
+
+// Error boundary to prevent entire app from crashing when a view throws
+class ViewErrorBoundary extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false, error: null };
+    }
+    static getDerivedStateFromError(error) {
+        return { hasError: true, error };
+    }
+    componentDidCatch(error, info) {
+        console.error('[ViewErrorBoundary]', error, info);
+    }
+    render() {
+        if (this.state.hasError) {
+            return (
+                <div className="flex-1 flex items-center justify-center p-8">
+                    <div className="max-w-lg text-center space-y-4">
+                        <div className="text-red-400 text-lg font-bold">Something went wrong</div>
+                        <pre className="text-xs text-white/50 bg-white/5 rounded-lg p-4 text-left overflow-auto max-h-48">
+                            {this.state.error?.message || 'Unknown error'}
+                            {'\n'}
+                            {this.state.error?.stack}
+                        </pre>
+                        <button
+                            onClick={() => this.setState({ hasError: false, error: null })}
+                            className="px-4 py-2 rounded-lg bg-accent/20 text-accent text-sm hover:bg-accent/30"
+                        >
+                            Try Again
+                        </button>
+                    </div>
+                </div>
+            );
+        }
+        return this.props.children;
+    }
+}
 
 export default function App() {
     // ── ALL hooks must be declared before any conditional return (React Rules of Hooks) ──
@@ -317,6 +355,15 @@ export default function App() {
                 <Suspense fallback={<PageLoader />}>
                     <MediaGallery />
                 </Suspense>
+            );
+            break;
+        case 'fileVault':
+            content = (
+                <ViewErrorBoundary>
+                    <Suspense fallback={<PageLoader />}>
+                        <EncryptedVaultView />
+                    </Suspense>
+                </ViewErrorBoundary>
             );
             break;
         case 'notes':

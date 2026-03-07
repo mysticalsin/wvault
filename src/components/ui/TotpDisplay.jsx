@@ -66,7 +66,7 @@ export default function TotpDisplay({ secret, onCopy }) {
                         <circle cx="20" cy="20" r="16" stroke="rgba(255,255,255,0.1)" strokeWidth="3" fill="none" />
                         <circle
                             cx="20" cy="20" r="16"
-                            stroke="#6366f1"
+                            stroke="#C967E8"
                             strokeWidth="3"
                             fill="none"
                             strokeDasharray="100"
@@ -80,17 +80,17 @@ export default function TotpDisplay({ secret, onCopy }) {
                 </div>
 
                 <div className="flex flex-col">
-                    <span className="text-xl font-mono font-bold tracking-widest text-indigo-300 group-hover:text-indigo-200 transition-colors">
+                    <span className="text-xl font-mono font-bold tracking-widest text-fuchsia-300 group-hover:text-fuchsia-200 transition-colors">
                         {code}
                     </span>
-                    <span className="text-[10px] text-white/30 uppercase tracking-widest">One-time Code</span>
+                    <span className="text-[10px] text-white/60 uppercase tracking-widest">One-time Code</span>
                 </div>
             </div>
 
             <button
                 onClick={handleCopy}
                 disabled={code === 'Error' || code === '000 000'}
-                className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/40 hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
             >
                 <Copy className="w-4 h-4" />
             </button>

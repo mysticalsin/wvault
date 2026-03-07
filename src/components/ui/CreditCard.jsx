@@ -76,10 +76,10 @@ export default function CreditCard({ card, showDetails = false }) {
                         <div className="w-[80%] h-8 bg-white/20 rounded flex items-center justify-end px-3">
                             <p className="font-mono text-black font-bold tracking-widest">{showDetails ? cvv : '•••'}</p>
                         </div>
-                        <p className="text-[10px] text-white/40 mt-2">CVV</p>
+                        <p className="text-[10px] text-white/60 mt-2">CVV</p>
                     </div>
 
-                    <div className="absolute bottom-4 right-6 text-white/20 text-xs">
+                    <div className="absolute bottom-4 right-6 text-white/60 text-xs">
                         {isVisa ? 'VISA SECURE' : 'MASTERCARD ID'}
                     </div>
                 </div>

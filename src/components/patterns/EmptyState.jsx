@@ -93,7 +93,7 @@ export default function EmptyState({
                 }}
                 className="w-20 h-20 mb-6 rounded-2xl bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 flex items-center justify-center"
             >
-                <Icon className="w-10 h-10 text-white/40" strokeWidth={1.5} />
+                <Icon className="w-10 h-10 text-white/60" strokeWidth={1.5} />
             </motion.div>
             
             {/* Title */}
@@ -137,16 +137,16 @@ export function EmptyStateCompact({ type = 'vault', onAction }) {
     return (
         <div className="flex items-center gap-4 py-6 px-4 text-left">
             <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center flex-shrink-0">
-                <Icon className="w-6 h-6 text-white/30" />
+                <Icon className="w-6 h-6 text-white/60" />
             </div>
             <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-white/70">{config.title}</p>
-                <p className="text-xs text-white/40 truncate">{config.description}</p>
+                <p className="text-xs text-white/60 truncate">{config.description}</p>
             </div>
             {config.actionLabel && onAction && (
                 <button
                     onClick={onAction}
-                    className="px-4 py-2 text-xs font-medium text-indigo-400 hover:text-indigo-300 transition-colors"
+                    className="px-4 py-2 text-xs font-medium text-purple-400 hover:text-purple-300 transition-colors"
                 >
                     {config.actionLabel}
                 </button>

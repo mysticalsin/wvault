@@ -51,30 +51,30 @@ export default function GeneratorView() {
     return (
         <div className="h-full flex flex-col p-8 max-w-3xl mx-auto w-full items-center justify-center">
             <header className="mb-8 text-center">
-                <div className="w-14 h-14 mx-auto mb-4 bg-cyan-400/10 rounded-2xl flex items-center justify-center border border-cyan-400/15">
-                    <ShieldCheck className="w-7 h-7 text-cyan-400" strokeWidth={1.75} />
+                <div className="w-14 h-14 mx-auto mb-4 bg-purple-400/10 rounded-2xl flex items-center justify-center border border-purple-400/15">
+                    <ShieldCheck className="w-7 h-7 text-fuchsia-400" strokeWidth={1.75} />
                 </div>
                 <h2 className="text-[28px] font-bold text-white/90" style={{ letterSpacing: '-0.03em' }}>Password Generator</h2>
-                <p className="text-white/30 mt-2 text-[14px]">Create strong, secure passwords instantly.</p>
+                <p className="text-white/60 mt-2 text-[14px]">Create strong, secure passwords instantly.</p>
             </header>
 
             {/* Password Display */}
             <div className="relative mb-8 group w-full">
-                <div className="glass-panel p-8 text-center font-mono tracking-[0.15em] break-all text-white/90 selection:bg-cyan-500/30 selection:text-white min-h-[5rem] flex items-center justify-center relative overflow-hidden backdrop-blur-2xl bg-white/[0.03] border-white/[0.08]">
+                <div className="glass-panel p-8 text-center font-mono tracking-[0.15em] break-all text-white/90 selection:bg-fuchsia-500/30 selection:text-white min-h-[5rem] flex items-center justify-center relative overflow-hidden backdrop-blur-2xl bg-white/[0.03] border-white/[0.08]">
                     <span className="text-3xl leading-relaxed">
                         {password.split('').map((char, i) => {
                             const isDigit = /\d/.test(char);
                             const isSymbol = /[^a-zA-Z0-9]/.test(char);
                             return (
-                                <span key={i} className={isSymbol ? 'text-purple-400' : isDigit ? 'text-amber-400' : 'text-cyan-300'}>{char}</span>
+                                <span key={i} className={isSymbol ? 'text-purple-400' : isDigit ? 'text-amber-400' : 'text-fuchsia-300'}>{char}</span>
                             );
                         })}
                     </span>
-                    <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-fuchsia-400/40 to-transparent" />
                 </div>
 
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
-                    <button onClick={generate} className="p-2.5 bg-white/[0.06] hover:bg-cyan-500/20 rounded-xl text-white/70 hover:text-cyan-400 transition-all backdrop-blur-md border border-white/[0.08]" title="Regenerate">
+                    <button onClick={generate} className="p-2.5 bg-white/[0.06] hover:bg-fuchsia-500/20 rounded-xl text-white/70 hover:text-fuchsia-400 transition-all backdrop-blur-md border border-white/[0.08]" title="Regenerate">
                         <RefreshCw className="w-4 h-4" />
                     </button>
                     <button onClick={copy} className="p-2.5 bg-white/[0.06] hover:bg-emerald-500/20 rounded-xl text-white/70 hover:text-emerald-400 transition-all backdrop-blur-md border border-white/[0.08]" title="Copy">
@@ -89,7 +89,7 @@ export default function GeneratorView() {
                 <div>
                     <div className="flex justify-between mb-4 items-center">
                         <span className="text-[13px] font-semibold text-white/60">Password Length</span>
-                        <span className="text-cyan-400 text-[13px] font-semibold bg-cyan-400/10 px-3 py-1 rounded-lg border border-cyan-400/15">{length} characters</span>
+                        <span className="text-fuchsia-400 text-[13px] font-semibold bg-purple-400/10 px-3 py-1 rounded-lg border border-purple-400/15">{length} characters</span>
                     </div>
                     <input
                         type="range"
@@ -118,16 +118,16 @@ export default function GeneratorView() {
 function Toggle({ label, sub, checked, onChange, icon: Icon, lower, disabled }) {
     return (
         <label className={`relative flex flex-col items-center justify-center p-4 rounded-2xl border transition-all duration-200 cursor-pointer h-24 group ${checked
-            ? 'bg-cyan-500/10 border-cyan-400/25 text-white'
-            : 'bg-white/[0.03] border-white/[0.06] text-white/40 hover:bg-white/[0.05] hover:border-white/[0.1]'
+            ? 'bg-fuchsia-500/10 border-purple-400/25 text-white'
+            : 'bg-white/[0.03] border-white/[0.06] text-white/60 hover:bg-white/[0.05] hover:border-white/[0.1]'
             } ${disabled ? 'opacity-30 cursor-not-allowed pointer-events-none' : ''}`}>
 
-            <div className={`absolute top-3 right-3 w-4 h-4 rounded-full border flex items-center justify-center transition-colors ${checked ? 'bg-cyan-400 border-cyan-400' : 'border-white/15 group-hover:border-white/30'
+            <div className={`absolute top-3 right-3 w-4 h-4 rounded-full border flex items-center justify-center transition-colors ${checked ? 'bg-purple-400 border-purple-400' : 'border-white/15 group-hover:border-white/30'
                 }`}>
                 {checked && <Check className="w-2.5 h-2.5 text-white" />}
             </div>
 
-            <Icon className={`w-5 h-5 mb-2 transition-colors ${checked ? 'text-cyan-400' : 'text-white/20 group-hover:text-white/35'} ${lower ? 'lowercase' : ''}`} strokeWidth={1.75} />
+            <Icon className={`w-5 h-5 mb-2 transition-colors ${checked ? 'text-fuchsia-400' : 'text-white/60 group-hover:text-white/60'} ${lower ? 'lowercase' : ''}`} strokeWidth={1.75} />
             <span className="text-[13px] font-semibold">{label}</span>
             <span className="text-[11px] opacity-40">{sub}</span>
 

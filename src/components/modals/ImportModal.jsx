@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Upload, FileText, X, Check, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import useFocusTrap from '../../hooks/useFocusTrap';
 
 const COMMON_FORMATS = [
     { id: 'csv', name: 'CSV (comma-separated)', example: 'service,username,password,url\nGoogle,user@gmail.com,pass123,https://google.com' },
@@ -18,6 +19,7 @@ export default function ImportPasswords({ isOpen, onClose, onImport }) {
     const [importing, setImporting] = useState(false);
     const [results, setResults] = useState({ success: 0, failed: 0 });
     const [showFormatHelp, setShowFormatHelp] = useState(false);
+    const focusTrapRef = useFocusTrap(isOpen);
     const fileInputRef = useRef(null);
 
     // Auto-close when switching tabs/views
@@ -235,7 +237,8 @@ export default function ImportPasswords({ isOpen, onClose, onImport }) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
             style={{ background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(12px)' }}>
-            <div className="w-full max-w-2xl glass-panel-floating overflow-hidden"
+            <div ref={focusTrapRef} role="dialog" aria-modal="true" aria-label="Import Passwords"
+                className="w-full max-w-2xl glass-panel-floating overflow-hidden"
                 style={{ borderRadius: '24px', maxHeight: '85vh' }}>
 
                 {/* Header */}
@@ -276,11 +279,11 @@ export default function ImportPasswords({ isOpen, onClose, onImport }) {
                                     className="hidden"
                                     onChange={handleFileSelect}
                                 />
-                                <FileText className="w-12 h-12 text-white/30 mx-auto mb-4" />
+                                <FileText className="w-12 h-12 text-white/60 mx-auto mb-4" />
                                 <p className="text-white font-medium mb-1">
                                     {file ? file.name : 'Click to select a file'}
                                 </p>
-                                <p className="text-xs text-white/40">
+                                <p className="text-xs text-white/60">
                                     Supports: CSV, TSV, TXT, JSON, Excel (.xlsx)
                                 </p>
                             </div>
@@ -339,15 +342,15 @@ export default function ImportPasswords({ isOpen, onClose, onImport }) {
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <p className="text-sm text-white truncate">{entry.service}</p>
-                                            <p className="text-xs text-white/40 truncate">{entry.username || 'No username'}</p>
+                                            <p className="text-xs text-white/60 truncate">{entry.username || 'No username'}</p>
                                         </div>
-                                        <div className="text-xs text-white/30">
+                                        <div className="text-xs text-white/60">
                                             {entry.password ? '••••••' : 'No password'}
                                         </div>
                                     </div>
                                 ))}
                                 {parsedData.length > 10 && (
-                                    <p className="text-center text-xs text-white/40 py-2">
+                                    <p className="text-center text-xs text-white/60 py-2">
                                         ... and {parsedData.length - 10} more entries
                                     </p>
                                 )}

@@ -82,23 +82,23 @@ export default function VaultView({
             <header className="h-16 flex items-center justify-between px-6 border-b border-white/5 bg-black/10 backdrop-blur-md sticky top-0 z-20">
                 <div className="flex items-center gap-4">
                     <h2 className="text-xl font-bold text-white/90 capitalize">{typeFilter === 'all' ? 'All Items' : typeFilter + 's'}</h2>
-                    <span className="bg-white/5 px-2 py-0.5 rounded-md text-xs text-white/40 font-mono">{filtered.length}</span>
+                    <span className="bg-white/5 px-2 py-0.5 rounded-md text-xs text-white/60 font-mono">{filtered.length}</span>
                 </div>
 
                 <div className="flex items-center gap-3">
                     <div className="relative group">
-                        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/25 group-focus-within:text-cyan-400 transition-colors" />
+                        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/60 group-focus-within:text-purple-400 transition-colors" />
                         <input
                             type="text"
                             placeholder="Search items..."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            className="bg-white/[0.04] border border-white/[0.08] rounded-full pl-10 pr-4 py-2 w-64 text-[13px] text-white/90 focus:outline-none focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/30 focus:bg-white/[0.06] transition-all placeholder:text-white/20"
+                            className="bg-white/[0.04] border border-white/[0.08] rounded-full pl-10 pr-4 py-2 w-64 text-[13px] text-white/90 focus:outline-none focus:border-fuchsia-500/40 focus:ring-1 focus:ring-fuchsia-500/30 focus:bg-white/[0.06] transition-all placeholder:text-white/60"
                         />
                         {search && (
                             <button
                                 onClick={() => setSearch('')}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60"
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white/60"
                             >
                                 ×
                             </button>
@@ -110,14 +110,14 @@ export default function VaultView({
                     <div className="flex p-1 bg-black/20 rounded-lg border border-white/5">
                         <button
                             onClick={() => setViewMode('grid')}
-                            className={`p-1.5 rounded-md transition-all ${viewMode === 'grid' ? 'bg-white/10 text-white shadow-sm' : 'text-white/40 hover:text-white/80'}`}
+                            className={`p-1.5 rounded-md transition-all ${viewMode === 'grid' ? 'bg-white/10 text-white shadow-sm' : 'text-white/60 hover:text-white/80'}`}
                             title="Grid view"
                         >
                             <Grid className="w-4 h-4" />
                         </button>
                         <button
                             onClick={() => setViewMode('list')}
-                            className={`p-1.5 rounded-md transition-all ${viewMode === 'list' ? 'bg-white/10 text-white shadow-sm' : 'text-white/40 hover:text-white/80'}`}
+                            className={`p-1.5 rounded-md transition-all ${viewMode === 'list' ? 'bg-white/10 text-white shadow-sm' : 'text-white/60 hover:text-white/80'}`}
                             title="List view"
                         >
                             <List className="w-4 h-4" />
@@ -126,7 +126,7 @@ export default function VaultView({
 
                     <button
                         onClick={onAdd}
-                        className="bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white px-4 py-2 rounded-xl flex items-center gap-2 text-[13px] font-semibold shadow-lg shadow-cyan-500/15 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                        className="bg-gradient-to-r from-fuchsia-600 to-purple-600 hover:from-fuchsia-500 hover:to-purple-500 text-white px-4 py-2 rounded-xl flex items-center gap-2 text-[13px] font-semibold shadow-lg shadow-purple-500/15 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
                     >
                         <Plus className="w-4 h-4" />
                         <span>New</span>
@@ -142,7 +142,7 @@ export default function VaultView({
                     <>
                         {/* PERFORMANCE: Results count */}
                         <div className="flex items-center justify-between mb-4">
-                            <p className="text-xs text-white/40">
+                            <p className="text-xs text-white/60">
                                 Showing {startIndex + 1}-{endIndex} of {filtered.length} items
                             </p>
                             {totalPages > 1 && (
@@ -263,7 +263,7 @@ function VaultCard({ item, onEdit, onToggleFavorite, onCopy, showPassword, onTog
         >
             <div className={`absolute top-0 left-0 bottom-0 w-1 ${isCard ? 'bg-gradient-to-b from-purple-500 to-pink-500' :
                 isNote ? 'bg-gradient-to-b from-yellow-400 to-orange-500' :
-                    'bg-gradient-to-b from-blue-500 to-cyan-500'
+                    'bg-gradient-to-b from-blue-500 to-fuchsia-500'
                 }`} />
 
             {/* Header */}
@@ -290,7 +290,7 @@ function VaultCard({ item, onEdit, onToggleFavorite, onCopy, showPassword, onTog
                     <div className="overflow-hidden">
                         {/* BUG FIX 3: Sanitized service and username */}
                         <h3 className="font-semibold text-white/90 truncate w-36 text-sm" title={item.service}>{sanitizeText(item.service)}</h3>
-                        <p className="text-xs text-white/40 truncate w-36" title={item.username}>{sanitizeText(item.username || item.card?.holder || 'Note')}</p>
+                        <p className="text-xs text-white/60 truncate w-36" title={item.username}>{sanitizeText(item.username || item.card?.holder || 'Note')}</p>
                     </div>
                 </div>
 
@@ -299,14 +299,14 @@ function VaultCard({ item, onEdit, onToggleFavorite, onCopy, showPassword, onTog
                         <>
                             <button
                                 onClick={(e) => { e.stopPropagation(); onEdit(item); }}
-                                className="p-1.5 rounded-lg text-white/40 hover:text-green-400 hover:bg-green-500/10 transition-all"
+                                className="p-1.5 rounded-lg text-white/60 hover:text-green-400 hover:bg-green-500/10 transition-all"
                                 title="Restore from Trash"
                             >
                                 <RefreshCw className="w-4 h-4" />
                             </button>
                             <button
                                 onClick={(e) => { e.stopPropagation(); onDelete(item); }}
-                                className="p-1.5 rounded-lg text-white/40 hover:text-red-400 hover:bg-red-500/10 transition-all"
+                                className="p-1.5 rounded-lg text-white/60 hover:text-red-400 hover:bg-red-500/10 transition-all"
                                 title="Delete Forever"
                             >
                                 <Trash2 className="w-4 h-4" />
@@ -317,7 +317,7 @@ function VaultCard({ item, onEdit, onToggleFavorite, onCopy, showPassword, onTog
                             {item.url && (
                                 <button
                                     onClick={(e) => { e.stopPropagation(); window.open(item.url, '_blank'); }}
-                                    className="p-1.5 rounded-lg text-white/20 hover:text-blue-400 hover:bg-white/5 transition-all"
+                                    className="p-1.5 rounded-lg text-white/60 hover:text-blue-400 hover:bg-white/5 transition-all"
                                     title="Open URL"
                                 >
                                     <ExternalLink className="w-3.5 h-3.5" />
@@ -325,14 +325,14 @@ function VaultCard({ item, onEdit, onToggleFavorite, onCopy, showPassword, onTog
                             )}
                             <button
                                 onClick={(e) => { e.stopPropagation(); onToggleFavorite(item.id); }}
-                                className={`p-1.5 rounded-lg transition-all ${isFavorite ? 'text-amber-400' : 'text-white/10 hover:text-amber-400 hover:bg-white/5'}`}
+                                className={`p-1.5 rounded-lg transition-all ${isFavorite ? 'text-amber-400' : 'text-white/60 hover:text-amber-400 hover:bg-white/5'}`}
                                 title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
                             >
                                 <Star className="w-4 h-4" fill={isFavorite ? "currentColor" : "none"} />
                             </button>
                             <button
                                 onClick={(e) => { e.stopPropagation(); onDelete(item); }}
-                                className="p-1.5 rounded-lg text-white/20 hover:text-red-400 hover:bg-red-500/10 transition-all"
+                                className="p-1.5 rounded-lg text-white/60 hover:text-red-400 hover:bg-red-500/10 transition-all"
                                 title="Move to Trash"
                             >
                                 <Trash2 className="w-4 h-4" />
@@ -349,7 +349,7 @@ function VaultCard({ item, onEdit, onToggleFavorite, onCopy, showPassword, onTog
                         <CreditCard card={item.card || {}} showDetails={false} />
                     </div>
                 ) : isNote ? (
-                    <p className="text-xs text-white/30 line-clamp-3 italic min-h-[3rem]">
+                    <p className="text-xs text-white/60 line-clamp-3 italic min-h-[3rem]">
                         {sanitizeText(item.notes) || "No content..."}
                     </p>
                 ) : (
@@ -401,16 +401,16 @@ function EmptyState({ type, onAdd, searchTerm }) {
     return (
         <div className="flex flex-col items-center justify-center h-full text-center pb-20">
             <div className="w-16 h-16 bg-white/[0.04] rounded-2xl flex items-center justify-center mb-4">
-                <Search className="w-7 h-7 text-white/15" strokeWidth={1.5} />
+                <Search className="w-7 h-7 text-white/60" strokeWidth={1.5} />
             </div>
             <h3 className="text-lg font-bold text-white/50" style={{ letterSpacing: '-0.02em' }}>
                 {searchTerm ? `No results for "${sanitizeText(searchTerm)}"` : `No ${type === 'all' ? 'items' : type + 's'} found`}
             </h3>
-            <p className="text-[13px] text-white/30 mt-2 max-w-xs">
+            <p className="text-[13px] text-white/60 mt-2 max-w-xs">
                 {searchTerm ? 'Try a different search term or clear the search.' : 'Get started by adding your first item to the vault.'}
             </p>
             {!searchTerm && (
-                <button onClick={onAdd} className="mt-5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white text-[13px] font-semibold shadow-lg shadow-cyan-500/15 transition-all duration-200 flex items-center gap-2">
+                <button onClick={onAdd} className="mt-5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-fuchsia-600 to-purple-600 hover:from-fuchsia-500 hover:to-purple-500 text-white text-[13px] font-semibold shadow-lg shadow-purple-500/15 transition-all duration-200 flex items-center gap-2">
                     <Plus className="w-4 h-4" /> Add First Item
                 </button>
             )}
@@ -443,7 +443,7 @@ function VaultRow({ item, onEdit, onCopy, onDelete, isTrashView }) {
                 ) : null}
                 {!item.icon_url && (
                     <div className="w-full h-full flex items-center justify-center">
-                        <KeyRound className="w-4 h-4 text-white/30" />
+                        <KeyRound className="w-4 h-4 text-white/60" />
                     </div>
                 )}
             </div>
@@ -453,21 +453,21 @@ function VaultRow({ item, onEdit, onCopy, onDelete, isTrashView }) {
                     <span className="font-semibold text-sm text-white/90 truncate">{sanitizeText(item.service)}</span>
                     {isFavorite && <Star className="w-3 h-3 text-amber-400 fill-current flex-shrink-0" />}
                 </div>
-                <span className="text-white/40 text-xs truncate block">{sanitizeText(item.username) || '—'}</span>
+                <span className="text-white/60 text-xs truncate block">{sanitizeText(item.username) || '—'}</span>
             </div>
-            <span className="text-white/20 text-xs font-mono uppercase flex-shrink-0">{item.type}</span>
+            <span className="text-white/60 text-xs font-mono uppercase flex-shrink-0">{item.type}</span>
             {isTrashView ? (
                 <>
                     <button
                         onClick={(e) => { e.stopPropagation(); onEdit(item); }}
-                        className="p-2 rounded-lg text-white/40 hover:text-green-400 hover:bg-green-500/10 opacity-0 group-hover:opacity-100 transition-all"
+                        className="p-2 rounded-lg text-white/60 hover:text-green-400 hover:bg-green-500/10 opacity-0 group-hover:opacity-100 transition-all"
                         title="Restore from Trash"
                     >
                         <RefreshCw className="w-4 h-4" />
                     </button>
                     <button
                         onClick={(e) => { e.stopPropagation(); onDelete(item); }}
-                        className="p-2 rounded-lg text-white/40 hover:text-red-400 hover:bg-red-500/10 opacity-0 group-hover:opacity-100 transition-all"
+                        className="p-2 rounded-lg text-white/60 hover:text-red-400 hover:bg-red-500/10 opacity-0 group-hover:opacity-100 transition-all"
                         title="Delete Forever"
                     >
                         <Trash2 className="w-4 h-4" />
@@ -477,7 +477,7 @@ function VaultRow({ item, onEdit, onCopy, onDelete, isTrashView }) {
                 <>
                     <button
                         onClick={(e) => { e.stopPropagation(); onCopy(item.password, "Password"); }}
-                        className="p-2 rounded-lg text-white/20 hover:text-white hover:bg-white/10 opacity-0 group-hover:opacity-100 transition-all"
+                        className="p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/10 opacity-0 group-hover:opacity-100 transition-all"
                         title="Copy password"
                     >
                         <Copy className="w-4 h-4" />
@@ -485,7 +485,7 @@ function VaultRow({ item, onEdit, onCopy, onDelete, isTrashView }) {
                     {onDelete && (
                         <button
                             onClick={(e) => { e.stopPropagation(); onDelete(item); }}
-                            className="p-2 rounded-lg text-white/20 hover:text-red-400 hover:bg-red-500/10 opacity-0 group-hover:opacity-100 transition-all"
+                            className="p-2 rounded-lg text-white/60 hover:text-red-400 hover:bg-red-500/10 opacity-0 group-hover:opacity-100 transition-all"
                             title="Move to Trash"
                         >
                             <Trash2 className="w-4 h-4" />

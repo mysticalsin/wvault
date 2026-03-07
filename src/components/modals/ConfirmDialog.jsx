@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { AlertTriangle } from 'lucide-react';
+import useFocusTrap from '../../hooks/useFocusTrap';
 
 /**
  * Reusable confirmation dialog with animated open/close.
@@ -14,6 +15,7 @@ import { AlertTriangle } from 'lucide-react';
  */
 export default function ConfirmDialog({ title, message, confirmLabel = 'Delete', onConfirm, onCancel, danger = true }) {
     const [isClosing, setIsClosing] = useState(false);
+    const focusTrapRef = useFocusTrap(!isClosing);
 
     const handleClose = useCallback(() => {
         if (isClosing) return;
@@ -39,6 +41,10 @@ export default function ConfirmDialog({ title, message, confirmLabel = 'Delete',
             onClick={handleClose}
         >
             <div
+                ref={focusTrapRef}
+                role="dialog"
+                aria-modal="true"
+                aria-label={title}
                 className="modal-content glass-panel w-full max-w-sm p-6"
                 onClick={(e) => e.stopPropagation()}
             >
@@ -49,7 +55,7 @@ export default function ConfirmDialog({ title, message, confirmLabel = 'Delete',
                     </div>
                     <div>
                         <h3 className="text-base font-bold text-white/90">{title}</h3>
-                        <p className="text-sm text-white/40 mt-1 leading-relaxed">{message}</p>
+                        <p className="text-sm text-white/60 mt-1 leading-relaxed">{message}</p>
                     </div>
                 </div>
 

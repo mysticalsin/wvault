@@ -108,7 +108,7 @@ export default function PinScreen({ onUnlock, onLogout }) {
                 </div>
 
                 <h2 className="text-xl font-bold text-white mb-2">Session Locked</h2>
-                <p className="text-white/40 text-sm mb-6">Enter PIN to resume</p>
+                <p className="text-white/60 text-sm mb-6">Enter PIN to resume</p>
 
                 {/* Dots */}
                 <div className="flex gap-4 mb-8">
@@ -153,7 +153,7 @@ export default function PinScreen({ onUnlock, onLogout }) {
                 <button
                     onClick={onLogout}
                     disabled={isSubmitting}
-                    className="text-xs text-white/30 hover:text-white/60 transition-colors disabled:opacity-50"
+                    className="text-xs text-white/60 hover:text-white/60 transition-colors disabled:opacity-50"
                 >
                     Switch User / Full Login
                 </button>

@@ -122,10 +122,10 @@ export default function AuditView({ items, onEdit }) {
                 <div className="flex items-center justify-between mb-5">
                     <div>
                         <div className="flex items-center gap-3 mb-1.5">
-                            <ShieldCheck className="w-7 h-7 text-cyan-400" strokeWidth={1.75} />
+                            <ShieldCheck className="w-7 h-7 text-fuchsia-400" strokeWidth={1.75} />
                             <h2 className="text-[28px] font-bold text-white/90" style={{ letterSpacing: '-0.03em' }}>Security Audit</h2>
                         </div>
-                        <p className="text-[13px] text-white/30">Defense Command Center — monitor threats and audit activity.</p>
+                        <p className="text-[13px] text-white/60">Defense Command Center — monitor threats and audit activity.</p>
                     </div>
                 </div>
 
@@ -134,8 +134,8 @@ export default function AuditView({ items, onEdit }) {
                     <button
                         onClick={() => setActiveTab('doctor')}
                         className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[13px] font-semibold transition-all duration-150 ${activeTab === 'doctor'
-                                ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-400/20'
-                                : 'text-white/40 hover:text-white/70 hover:bg-white/[0.04] border border-transparent'
+                                ? 'bg-fuchsia-500/10 text-fuchsia-400 border border-purple-400/20'
+                                : 'text-white/60 hover:text-white/70 hover:bg-white/[0.04] border border-transparent'
                             }`}
                     >
                         <ShieldCheck className="w-4 h-4" strokeWidth={1.75} />
@@ -144,8 +144,8 @@ export default function AuditView({ items, onEdit }) {
                     <button
                         onClick={() => setActiveTab('observatory')}
                         className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[13px] font-semibold transition-all duration-150 ${activeTab === 'observatory'
-                                ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-400/20'
-                                : 'text-white/40 hover:text-white/70 hover:bg-white/[0.04] border border-transparent'
+                                ? 'bg-fuchsia-500/10 text-fuchsia-400 border border-purple-400/20'
+                                : 'text-white/60 hover:text-white/70 hover:bg-white/[0.04] border border-transparent'
                             }`}
                     >
                         <Telescope className="w-4 h-4" strokeWidth={1.75} />
@@ -161,12 +161,12 @@ export default function AuditView({ items, onEdit }) {
                 <>
                     {/* Vault Doctor Header */}
                     <div className="flex items-center justify-between">
-                        <h3 className="text-[11px] font-bold text-white/35 uppercase tracking-widest">Vault Health Analysis</h3>
+                        <h3 className="text-[11px] font-bold text-white/60 uppercase tracking-widest">Vault Health Analysis</h3>
                         <button
                             onClick={runBreachCheck}
                             disabled={isChecking}
                             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[13px] font-semibold border transition-all duration-200 ${isChecking
-                                    ? 'opacity-50 cursor-not-allowed border-white/[0.06] text-white/30'
+                                    ? 'opacity-50 cursor-not-allowed border-white/[0.06] text-white/60'
                                     : 'border-white/[0.08] text-white/60 hover:bg-white/[0.05] hover:text-white/80'
                                 }`}
                         >
@@ -179,13 +179,13 @@ export default function AuditView({ items, onEdit }) {
                     <div className="glass-panel p-8 flex items-center justify-between">
                         <div>
                             <h3 className="text-[13px] font-semibold text-white/50 uppercase tracking-widest">Vault Health Score</h3>
-                            <p className="text-[13px] text-white/25 mt-1">Based on strength, reuse, and breach exposure.</p>
+                            <p className="text-[13px] text-white/60 mt-1">Based on strength, reuse, and breach exposure.</p>
                         </div>
                         <div className="relative w-24 h-24 flex items-center justify-center">
                             <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
                                 <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="7" />
                                 <circle cx="50" cy="50" r="42" fill="none"
-                                    stroke={finalScore > 79 ? '#22d3ee' : finalScore > 49 ? '#f59e0b' : '#f87171'}
+                                    stroke={finalScore > 79 ? '#FA93FA' : finalScore > 49 ? '#f59e0b' : '#f87171'}
                                     strokeWidth="7"
                                     strokeLinecap="round"
                                     strokeDasharray={2 * Math.PI * 42}
@@ -195,7 +195,7 @@ export default function AuditView({ items, onEdit }) {
                             </svg>
                             <div className="absolute inset-0 flex flex-col items-center justify-center">
                                 <span className="text-2xl font-bold text-white" style={{ letterSpacing: '-0.03em' }}>{finalScore}</span>
-                                <span className="text-[9px] text-white/30 uppercase tracking-wider">score</span>
+                                <span className="text-[9px] text-white/60 uppercase tracking-wider">score</span>
                             </div>
                         </div>
                     </div>
@@ -210,7 +210,7 @@ export default function AuditView({ items, onEdit }) {
                             </div>
                             <div className="max-h-60 overflow-y-auto">
                                 {analysis.compromised.length === 0 ? (
-                                    <div className="p-8 text-center text-white/25 text-[13px] flex flex-col items-center gap-2">
+                                    <div className="p-8 text-center text-white/60 text-[13px] flex flex-col items-center gap-2">
                                         <CheckCircle className="w-7 h-7 text-emerald-500/40" />
                                         No compromises detected. Run a scan to be sure.
                                     </div>
@@ -244,7 +244,7 @@ export default function AuditView({ items, onEdit }) {
                             </div>
                             <div className="max-h-64 overflow-y-auto">
                                 {analysis.weak.length === 0 ? (
-                                    <div className="p-8 text-center text-white/25 text-[13px]">All passwords are strong.</div>
+                                    <div className="p-8 text-center text-white/60 text-[13px]">All passwords are strong.</div>
                                 ) : (
                                     analysis.weak.map(item => (
                                         <div key={item.id} onClick={() => onEdit(item)} className="px-4 py-3 hover:bg-white/[0.04] flex items-center gap-3 cursor-pointer border-b border-white/[0.04] last:border-0 transition-colors">
@@ -257,9 +257,9 @@ export default function AuditView({ items, onEdit }) {
                                             </div>
                                             <div className="flex-1 min-w-0">
                                                 <div className="text-[13px] font-medium text-white/85 truncate">{sanitizeText(item.service)}</div>
-                                                <div className="text-[11px] text-white/35 truncate">{sanitizeText(item.username)}</div>
+                                                <div className="text-[11px] text-white/60 truncate">{sanitizeText(item.username)}</div>
                                             </div>
-                                            <ArrowRight className="w-3.5 h-3.5 text-white/20" />
+                                            <ArrowRight className="w-3.5 h-3.5 text-white/60" />
                                         </div>
                                     ))
                                 )}
@@ -275,7 +275,7 @@ export default function AuditView({ items, onEdit }) {
                             </div>
                             <div className="max-h-64 overflow-y-auto">
                                 {analysis.reused.length === 0 ? (
-                                    <div className="p-8 text-center text-white/25 text-[13px]">No password reuse detected.</div>
+                                    <div className="p-8 text-center text-white/60 text-[13px]">No password reuse detected.</div>
                                 ) : (
                                     analysis.reused.map(item => (
                                         <div key={item.id} onClick={() => onEdit(item)} className="px-4 py-3 hover:bg-white/[0.04] flex items-center gap-3 cursor-pointer border-b border-white/[0.04] last:border-0 transition-colors">
@@ -288,9 +288,9 @@ export default function AuditView({ items, onEdit }) {
                                             </div>
                                             <div className="flex-1 min-w-0">
                                                 <div className="text-[13px] font-medium text-white/85 truncate">{sanitizeText(item.service)}</div>
-                                                <div className="text-[11px] text-white/35 truncate">{sanitizeText(item.username)}</div>
+                                                <div className="text-[11px] text-white/60 truncate">{sanitizeText(item.username)}</div>
                                             </div>
-                                            <ArrowRight className="w-3.5 h-3.5 text-white/20" />
+                                            <ArrowRight className="w-3.5 h-3.5 text-white/60" />
                                         </div>
                                     ))
                                 )}

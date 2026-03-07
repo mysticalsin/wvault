@@ -149,18 +149,18 @@ export default function SettingsView({ onExport, onDeleteAll, onEmptyTrash, onSe
         <div className="flex-1 overflow-y-auto p-8 max-w-4xl mx-auto space-y-8">
             <header className="mb-2">
                 <h2 className="text-[28px] font-bold text-white/90" style={{ letterSpacing: '-0.03em' }}>Settings</h2>
-                <p className="text-[13px] text-white/30 mt-1">Manage themes, data, and security.</p>
+                <p className="text-[13px] text-white/60 mt-1">Manage themes, data, and security.</p>
             </header>
 
             {/* Appearance - BUG FIX 1: Theme settings now persist */}
             <section className="space-y-4">
-                <h3 className="text-[11px] font-bold text-white/35 uppercase tracking-widest flex items-center gap-2">
-                    <Palette className="w-3.5 h-3.5 text-cyan-400/60" /> Appearance
+                <h3 className="text-[11px] font-bold text-white/60 uppercase tracking-widest flex items-center gap-2">
+                    <Palette className="w-3.5 h-3.5 text-fuchsia-400/60" /> Appearance
                 </h3>
 
                 {/* Accent Color */}
                 <div className="glass-panel p-6">
-                    <h4 className="text-[12px] font-semibold text-white/40 uppercase tracking-widest mb-4">Accent Color</h4>
+                    <h4 className="text-[12px] font-semibold text-white/60 uppercase tracking-widest mb-4">Accent Color</h4>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
                         {THEMES.map(t => (
                             <button
@@ -175,7 +175,7 @@ export default function SettingsView({ onExport, onDeleteAll, onEmptyTrash, onSe
                                     className="w-7 h-7 rounded-full mx-auto mb-2 shadow-lg"
                                     style={{ backgroundColor: t.hex }}
                                 />
-                                <span className={`block text-center text-[12px] font-medium ${theme === t.id ? 'text-white/90' : 'text-white/40'
+                                <span className={`block text-center text-[12px] font-medium ${theme === t.id ? 'text-white/90' : 'text-white/60'
                                     }`}>
                                     {t.name}
                                 </span>
@@ -192,11 +192,11 @@ export default function SettingsView({ onExport, onDeleteAll, onEmptyTrash, onSe
 
             {/* WVAULT: Privacy & Section Toggles */}
             <section className="space-y-4">
-                <h3 className="text-[11px] font-bold text-white/35 uppercase tracking-widest flex items-center gap-2">
-                    <Eye className="w-3.5 h-3.5 text-cyan-400/60" /> Sidebar Sections
+                <h3 className="text-[11px] font-bold text-white/60 uppercase tracking-widest flex items-center gap-2">
+                    <Eye className="w-3.5 h-3.5 text-fuchsia-400/60" /> Sidebar Sections
                 </h3>
                 <div className="glass-panel p-6 space-y-3">
-                    <p className="text-[13px] text-white/30 mb-4">
+                    <p className="text-[13px] text-white/60 mb-4">
                         Customize which sections appear in the sidebar. Home and All Items are always visible.
                     </p>
 
@@ -205,7 +205,7 @@ export default function SettingsView({ onExport, onDeleteAll, onEmptyTrash, onSe
                         { key: 'cards', label: 'Cards', sub: 'Credit & debit card storage', icon: CreditCard, color: 'text-emerald-400', bg: 'bg-emerald-500/10', active: sectionSettings.cards !== false },
                         { key: 'notes', label: 'Notes', sub: 'Obsidian-style notes with pop-out windows', icon: StickyNote, color: 'text-yellow-400', bg: 'bg-yellow-500/10', active: sectionSettings.notes },
                         { key: 'games', label: 'Games Galaxy', sub: 'Gaming credentials vault', icon: Gamepad2, color: 'text-purple-400', bg: 'bg-purple-500/10', active: sectionSettings.games !== false },
-                        { key: 'generator', label: 'Generator', sub: 'Password generator tool', icon: RefreshCw, color: 'text-cyan-400', bg: 'bg-cyan-500/10', active: sectionSettings.generator },
+                        { key: 'generator', label: 'Generator', sub: 'Password generator tool', icon: RefreshCw, color: 'text-fuchsia-400', bg: 'bg-fuchsia-500/10', active: sectionSettings.generator },
                         { key: 'audit', label: 'Security Audit', sub: 'Check password strength and breaches', icon: ShieldCheck, color: 'text-amber-400', bg: 'bg-amber-500/10', active: sectionSettings.audit },
                         { key: 'trash', label: 'Trash', sub: 'Deleted items recovery', icon: Trash2, color: 'text-red-400', bg: 'bg-red-500/10', active: sectionSettings.trash },
                     ].map(({ key, label, sub, icon: Icon, color, bg, active }) => (
@@ -216,7 +216,7 @@ export default function SettingsView({ onExport, onDeleteAll, onEmptyTrash, onSe
                                 </div>
                                 <div>
                                     <h4 className="text-[13px] font-semibold text-white/80">{label}</h4>
-                                    <p className="text-[11px] text-white/30">{sub}</p>
+                                    <p className="text-[11px] text-white/60">{sub}</p>
                                 </div>
                             </div>
                             <button
@@ -233,15 +233,15 @@ export default function SettingsView({ onExport, onDeleteAll, onEmptyTrash, onSe
                     <div className="flex items-center justify-between p-4 rounded-2xl bg-white/[0.02] border border-white/[0.04]">
                         <div className="flex items-center gap-3">
                             <div className="w-9 h-9 rounded-xl bg-white/5 flex items-center justify-center">
-                                <SettingsIcon className="w-4 h-4 text-white/30" strokeWidth={1.75} />
+                                <SettingsIcon className="w-4 h-4 text-white/60" strokeWidth={1.75} />
                             </div>
                             <div>
                                 <h4 className="text-[13px] font-semibold text-white/50">Settings</h4>
-                                <p className="text-[11px] text-white/25">Core feature — always accessible via Ctrl+,</p>
+                                <p className="text-[11px] text-white/60">Core feature — always accessible via Ctrl+,</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-2">
-                            <span className="text-[11px] text-cyan-400/70 font-medium">Always on</span>
+                            <span className="text-[11px] text-fuchsia-400/70 font-medium">Always on</span>
                         </div>
                     </div>
                 </div>
@@ -249,8 +249,8 @@ export default function SettingsView({ onExport, onDeleteAll, onEmptyTrash, onSe
 
             {/* Security */}
             <section className="space-y-4">
-                <h3 className="text-[11px] font-bold text-white/35 uppercase tracking-widest flex items-center gap-2">
-                    <ShieldCheck className="w-3.5 h-3.5 text-cyan-400/60" /> Security
+                <h3 className="text-[11px] font-bold text-white/60 uppercase tracking-widest flex items-center gap-2">
+                    <ShieldCheck className="w-3.5 h-3.5 text-fuchsia-400/60" /> Security
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Session PIN - BUG FIX 5: Improved PIN input with validation */}
@@ -322,8 +322,8 @@ export default function SettingsView({ onExport, onDeleteAll, onEmptyTrash, onSe
 
             {/* Data Management */}
             <section className="space-y-4">
-                <h3 className="text-[11px] font-bold text-white/35 uppercase tracking-widest flex items-center gap-2">
-                    <HardDrive className="w-3.5 h-3.5 text-cyan-400/60" /> Data Management
+                <h3 className="text-[11px] font-bold text-white/60 uppercase tracking-widest flex items-center gap-2">
+                    <HardDrive className="w-3.5 h-3.5 text-fuchsia-400/60" /> Data Management
                 </h3>
                 <div className="glass-panel p-6 space-y-6">
                     <div className="flex items-center justify-between">
@@ -442,7 +442,7 @@ export default function SettingsView({ onExport, onDeleteAll, onEmptyTrash, onSe
 
             {/* WVAULT: About - Minimal, no version badge in main UI */}
             <section className="text-center pt-8 pb-4">
-                <div className="text-[10px] text-white/15 tracking-widest uppercase">
+                <div className="text-[10px] text-white/60 tracking-widest uppercase">
                     WVault — Where Your World is Secured
                 </div>
             </section>

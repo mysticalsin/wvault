@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
     LayoutGrid, CreditCard, StickyNote, Trash2,
-    ShieldCheck, KeyRound, Settings, LogOut, RefreshCw, HardDrive, User, Gamepad2, Upload
+    ShieldCheck, KeyRound, Settings, LogOut, RefreshCw, HardDrive, User, Gamepad2, Upload, FolderLock
 } from 'lucide-react';
 
 // WVAULT Constellation Logo Component
@@ -22,17 +22,17 @@ const WVaultLogo = () => (
         <circle cx="32" cy="28" r="5" fill="url(#glow-gradient)" opacity="0.5" />
         <defs>
             <linearGradient id="star-gradient" x1="8" y1="16" x2="32" y2="28" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#22d3ee" />
-                <stop offset="0.5" stopColor="#a78bfa" />
-                <stop offset="1" stopColor="#22d3ee" />
+                <stop stopColor="#FA93FA" />
+                <stop offset="0.5" stopColor="#983AD6" />
+                <stop offset="1" stopColor="#FA93FA" />
             </linearGradient>
             <linearGradient id="orbital-gradient" x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#22d3ee" stopOpacity="0.5" />
-                <stop offset="1" stopColor="#a78bfa" stopOpacity="0.3" />
+                <stop stopColor="#FA93FA" stopOpacity="0.5" />
+                <stop offset="1" stopColor="#983AD6" stopOpacity="0.3" />
             </linearGradient>
             <radialGradient id="glow-gradient" cx="0.5" cy="0.5" r="0.5">
-                <stop stopColor="#22d3ee" stopOpacity="0.8" />
-                <stop offset="1" stopColor="#a78bfa" stopOpacity="0" />
+                <stop stopColor="#FA93FA" stopOpacity="0.8" />
+                <stop offset="1" stopColor="#983AD6" stopOpacity="0" />
             </radialGradient>
         </defs>
     </svg>
@@ -135,6 +135,7 @@ export default function Sidebar({ activeView, onViewChange, stats }) {
         // Games is OPTIONAL
         ...(sectionSettings.games !== false ? [{ id: 'games', label: 'Games', icon: Gamepad2 }] : []),
         { id: 'media', label: 'Secure Drive', icon: HardDrive },
+        { id: 'fileVault', label: 'File Vault', icon: FolderLock },
         { type: 'divider' },
         // Optional sections based on settings
         ...(sectionSettings.generator ? [{ id: 'generator', label: 'Generator', icon: RefreshCw }] : []),
@@ -164,8 +165,8 @@ export default function Sidebar({ activeView, onViewChange, stats }) {
                 {/* User Name Display */}
                 {userName && (
                     <div className="mt-4 flex items-center gap-2.5 px-2.5 py-2 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-cyan-500/30 to-purple-500/30 flex items-center justify-center ring-1 ring-cyan-400/20">
-                            <User className="w-3.5 h-3.5 text-cyan-300" />
+                        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-fuchsia-500/30 to-violet-600/30 flex items-center justify-center ring-1 ring-purple-400/20">
+                            <User className="w-3.5 h-3.5 text-pink-300" />
                         </div>
                         <span className="text-[13px] text-white/60 truncate flex-1 font-medium">{userName}</span>
                     </div>
@@ -187,21 +188,21 @@ export default function Sidebar({ activeView, onViewChange, stats }) {
                             onClick={() => onViewChange(item.id)}
                             className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 group relative ${isActive
                                     ? 'bg-white/[0.06] text-white'
-                                    : 'text-white/40 hover:text-white/70 hover:bg-white/[0.03]'
+                                    : 'text-white/60 hover:text-white/70 hover:bg-white/[0.03]'
                                 }`}
                         >
                             {/* Active accent bar */}
                             {isActive && (
-                                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-4 rounded-r-full bg-gradient-to-b from-cyan-400 to-purple-500" />
+                                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-4 rounded-r-full bg-gradient-to-b from-pink-400 to-purple-600" />
                             )}
-                            <Icon className={`w-[18px] h-[18px] transition-colors flex-shrink-0 ${isActive ? 'text-cyan-400' : 'group-hover:text-white/50'}`} strokeWidth={isActive ? 2 : 1.75} />
+                            <Icon className={`w-[18px] h-[18px] transition-colors flex-shrink-0 ${isActive ? 'text-purple-400' : 'group-hover:text-white/50'}`} strokeWidth={isActive ? 2 : 1.75} />
                             <span className={`text-[13px] flex-1 text-left ${isActive ? 'font-semibold' : 'font-medium'}`}>{item.label}</span>
 
                             {/* Counter / Alert */}
                             {(item.count > 0 || item.alert) && (
                                 <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-md ${item.alert
                                     ? 'bg-red-500/15 text-red-400'
-                                    : 'bg-white/[0.06] text-white/30'
+                                    : 'bg-white/[0.06] text-white/60'
                                     }`}>
                                     {item.count || '!'}
                                 </span>
@@ -214,8 +215,8 @@ export default function Sidebar({ activeView, onViewChange, stats }) {
             {/* Developer Signature */}
             <div className="px-4 py-3 border-t border-white/[0.04]">
                 <div className="text-center">
-                    <p className="text-[8px] text-white/15 tracking-widest uppercase">
-                        Made by <span className="text-cyan-400/40">Tony Walteur</span>
+                    <p className="text-[8px] text-white/60 tracking-widest uppercase">
+                        Made by <span className="text-purple-400/40">Tony Walteur</span>
                     </p>
                 </div>
             </div>

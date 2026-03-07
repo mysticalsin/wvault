@@ -28,7 +28,7 @@ const CATEGORIES = {
     streaming: { icon: Film, label: 'Streaming', color: 'text-purple-400', bg: 'bg-purple-400/10', border: 'border-purple-400/20' },
     gaming: { icon: Gamepad2, label: 'Gaming', color: 'text-pink-400', bg: 'bg-pink-400/10', border: 'border-pink-400/20' },
     email: { icon: Mail, label: 'Email', color: 'text-yellow-400', bg: 'bg-yellow-400/10', border: 'border-yellow-400/20' },
-    development: { icon: FileText, label: 'Dev', color: 'text-cyan-400', bg: 'bg-cyan-400/10', border: 'border-cyan-400/20' },
+    development: { icon: FileText, label: 'Dev', color: 'text-purple-400', bg: 'bg-purple-400/10', border: 'border-purple-400/20' },
     shopping: { icon: ShoppingBag, label: 'Shopping', color: 'text-pink-400', bg: 'bg-pink-400/10', border: 'border-pink-400/20' },
     work: { icon: Briefcase, label: 'Work', color: 'text-orange-400', bg: 'bg-orange-400/10', border: 'border-orange-400/20' },
     general: { icon: Globe, label: 'General', color: 'text-gray-400', bg: 'bg-gray-400/10', border: 'border-gray-400/20' }
@@ -670,7 +670,7 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                     <div className="flex items-center gap-3">
                         <div className={`p-2.5 rounded-xl shadow-lg ${type === 'card' ? 'bg-purple-500/20 text-purple-300 shadow-purple-500/10' :
                             type === 'note' ? 'bg-yellow-500/20 text-yellow-300 shadow-yellow-500/10' :
-                                'bg-indigo-500/20 text-indigo-300 shadow-indigo-500/10'
+                                'bg-fuchsia-500/20 text-fuchsia-300 shadow-fuchsia-500/10'
                             }`}>
                             {type === 'card' ? <CreditCard className="w-6 h-6" /> : type === 'note' ? <StickyNote className="w-6 h-6" /> : <KeyRound className="w-6 h-6" />}
                         </div>
@@ -678,7 +678,7 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                             <h2 className="text-xl font-bold text-white/90">
                                 {initialData ? 'Edit' : 'New'} {type === 'card' ? 'Card' : type === 'note' ? 'Note' : 'Login'}
                             </h2>
-                            <p className="text-xs text-white/40">Securely store your credentials</p>
+                            <p className="text-xs text-white/60">Securely store your credentials</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -734,9 +734,9 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                             </div>
 
                             {isLoadingAttachments ? (
-                                <div className="text-center p-8 text-white/30 text-sm">Loading files...</div>
+                                <div className="text-center p-8 text-white/60 text-sm">Loading files...</div>
                             ) : attachments.length === 0 ? (
-                                <div className="text-center p-12 border-2 border-dashed border-white/5 rounded-xl text-white/30 text-sm flex flex-col items-center gap-2">
+                                <div className="text-center p-12 border-2 border-dashed border-white/5 rounded-xl text-white/60 text-sm flex flex-col items-center gap-2">
                                     <Paperclip className="w-8 h-8 opacity-50" />
                                     No files attached.
                                 </div>
@@ -750,7 +750,7 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                                                 </div>
                                                 <div className="min-w-0">
                                                     <div className="text-sm font-medium text-white/90 truncate">{file.name}</div>
-                                                    <div className="text-xs text-white/40">{(file.size / 1024).toFixed(1)} KB • {file.created_at}</div>
+                                                    <div className="text-xs text-white/60">{(file.size / 1024).toFixed(1)} KB • {file.created_at}</div>
                                                 </div>
                                             </div>
                                             <div className="flex items-center gap-2">
@@ -776,24 +776,24 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                         </div>
                     ) : view === 'history' ? (
                         <div className="space-y-4">
-                            <div className="p-4 bg-indigo-500/10 border border-indigo-500/20 rounded-xl flex items-center gap-3">
-                                <Clock className="w-6 h-6 text-indigo-400" />
+                            <div className="p-4 bg-fuchsia-500/10 border border-fuchsia-500/20 rounded-xl flex items-center gap-3">
+                                <Clock className="w-6 h-6 text-purple-400" />
                                 <div>
-                                    <h3 className="text-indigo-200 font-bold text-sm">Time Machine</h3>
-                                    <p className="text-indigo-200/60 text-xs">Restore previous versions of this password.</p>
+                                    <h3 className="text-fuchsia-200 font-bold text-sm">Time Machine</h3>
+                                    <p className="text-fuchsia-200/60 text-xs">Restore previous versions of this password.</p>
                                 </div>
                             </div>
 
                             {isLoadingHistory ? (
-                                <div className="text-center p-8 text-white/30 text-sm">Loading history...</div>
+                                <div className="text-center p-8 text-white/60 text-sm">Loading history...</div>
                             ) : history.length === 0 ? (
-                                <div className="text-center p-8 text-white/30 text-sm">No history found for this item.</div>
+                                <div className="text-center p-8 text-white/60 text-sm">No history found for this item.</div>
                             ) : (
                                 <div className="space-y-2">
                                     {history.map(ver => (
                                         <div key={ver.id} className="p-4 bg-white/5 rounded-xl border border-white/5 flex items-center justify-between group hover:border-white/10">
                                             <div>
-                                                <div className="text-xs font-mono text-white/40 mb-1">{ver.updated_at}</div>
+                                                <div className="text-xs font-mono text-white/60 mb-1">{ver.updated_at}</div>
                                                 <div className="font-mono text-white/80 text-sm flex items-center gap-2">
                                                     <div className="w-1.5 h-1.5 rounded-full bg-white/20"></div>
                                                     •••••••
@@ -848,11 +848,11 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                                                         className: `w-8 h-8 ${CATEGORIES[formData.category].color}`
                                                     })
                                                 ) : (
-                                                    <Globe className="w-8 h-8 text-white/30" />
+                                                    <Globe className="w-8 h-8 text-white/60" />
                                                 )
                                             ) : (
                                                 // Show globe when empty
-                                                <Globe className="w-8 h-8 text-white/10" />
+                                                <Globe className="w-8 h-8 text-white/60" />
                                             )}
                                         </div>
                                     )}
@@ -909,7 +909,7 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                                                         </div>
                                                         <div className="flex-1 min-w-0">
                                                             <div className="text-sm font-medium text-white truncate">{service.name}</div>
-                                                            <div className="text-[10px] text-white/30 truncate">{service.domain}</div>
+                                                            <div className="text-[10px] text-white/60 truncate">{service.domain}</div>
                                                         </div>
                                                         <span className={`text-[9px] font-semibold px-2 py-0.5 rounded-full ${cat.bg} ${cat.color} ${cat.border} border`}>
                                                             {cat.label}
@@ -917,10 +917,10 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                                                     </button>
                                                 );
                                             })}
-                                            <div className="px-4 py-1.5 text-[10px] text-white/20 border-t border-white/5 flex items-center gap-1.5">
-                                                <kbd className="px-1 py-0.5 rounded bg-white/10 text-white/30">↑↓</kbd> navigate
-                                                <kbd className="px-1 py-0.5 rounded bg-white/10 text-white/30 ml-2">↵</kbd> select
-                                                <kbd className="px-1 py-0.5 rounded bg-white/10 text-white/30 ml-2">esc</kbd> dismiss
+                                            <div className="px-4 py-1.5 text-[10px] text-white/60 border-t border-white/5 flex items-center gap-1.5">
+                                                <kbd className="px-1 py-0.5 rounded bg-white/10 text-white/60">↑↓</kbd> navigate
+                                                <kbd className="px-1 py-0.5 rounded bg-white/10 text-white/60 ml-2">↵</kbd> select
+                                                <kbd className="px-1 py-0.5 rounded bg-white/10 text-white/60 ml-2">esc</kbd> dismiss
                                             </div>
                                         </div>
                                     )}
@@ -952,8 +952,8 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                                                         : 'bg-white/[0.02] border-white/5 hover:bg-white/[0.05]'
                                                         }`}
                                                 >
-                                                    <Icon className={`w-5 h-5 ${isSelected ? config.color : 'text-white/40'}`} />
-                                                    <span className={`text-[10px] font-medium ${isSelected ? 'text-white/90' : 'text-white/40'}`}>
+                                                    <Icon className={`w-5 h-5 ${isSelected ? config.color : 'text-white/60'}`} />
+                                                    <span className={`text-[10px] font-medium ${isSelected ? 'text-white/90' : 'text-white/60'}`}>
                                                         {config.label}
                                                     </span>
                                                 </button>
@@ -1002,7 +1002,7 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                                                     >
                                                         <PlatformIcon className="w-4 h-4" style={{ color: platform.accent }} />
                                                     </div>
-                                                    <span className={`text-[9px] font-medium truncate w-full text-center ${isSelected ? 'text-white/90' : 'text-white/40'}`}>
+                                                    <span className={`text-[9px] font-medium truncate w-full text-center ${isSelected ? 'text-white/90' : 'text-white/60'}`}>
                                                         {platform.name}
                                                     </span>
                                                     {isSelected && (
@@ -1016,7 +1016,7 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                                     {/* Custom Platforms (if any) */}
                                     {customGamePlatforms.length > 0 && (
                                         <>
-                                            <p className="text-[10px] text-white/30 uppercase tracking-wider pt-1">Custom Platforms</p>
+                                            <p className="text-[10px] text-white/60 uppercase tracking-wider pt-1">Custom Platforms</p>
                                             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
                                                 {customGamePlatforms.map((platform) => {
                                                     const isSelected = selectedGamePlatform?.id === platform.id;
@@ -1047,7 +1047,7 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                                                             >
                                                                 <Gamepad2 className="w-4 h-4" style={{ color: platform.accent }} />
                                                             </div>
-                                                            <span className={`text-[9px] font-medium truncate w-full text-center ${isSelected ? 'text-white/90' : 'text-white/40'}`}>
+                                                            <span className={`text-[9px] font-medium truncate w-full text-center ${isSelected ? 'text-white/90' : 'text-white/60'}`}>
                                                                 {platform.name}
                                                             </span>
                                                             {isSelected && (
@@ -1084,7 +1084,7 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                                                     <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-gray-500/20 border border-gray-400/40">
                                                         <Gamepad2 className="w-4 h-4 text-gray-400" />
                                                     </div>
-                                                    <span className={`text-[9px] font-medium truncate w-full text-center ${isSelected ? 'text-white/90' : 'text-white/40'}`}>
+                                                    <span className={`text-[9px] font-medium truncate w-full text-center ${isSelected ? 'text-white/90' : 'text-white/60'}`}>
                                                         {otherPlatform.name}
                                                     </span>
                                                     {isSelected && (
@@ -1130,7 +1130,7 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                                             <label className="text-xs font-semibold text-white/50 ml-1 uppercase tracking-wide">Username / Email</label>
                                             <div className="relative">
                                                 <div className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center bg-[#0c0c1e]/80 rounded pointer-events-none z-10">
-                                                    <User className="w-4 h-4 text-white/30" />
+                                                    <User className="w-4 h-4 text-white/60" />
                                                 </div>
                                                 <input
                                                     type="text"
@@ -1146,7 +1146,7 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                                             <label className="text-xs font-semibold text-white/50 ml-1 uppercase tracking-wide">Website URL</label>
                                             <div className="relative">
                                                 <div className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center bg-[#0c0c1e]/80 rounded pointer-events-none z-10">
-                                                    <Globe className="w-4 h-4 text-white/30" />
+                                                    <Globe className="w-4 h-4 text-white/60" />
                                                 </div>
                                                 <input
                                                     type="url"
@@ -1168,7 +1168,7 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                                             </label>
                                             <div className="relative group">
                                                 <div className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center bg-[#0c0c1e]/80 rounded pointer-events-none z-10">
-                                                    <Lock className="w-4 h-4 text-white/30 group-focus-within:text-accent/50 transition-colors" />
+                                                    <Lock className="w-4 h-4 text-white/60 group-focus-within:text-accent/50 transition-colors" />
                                                 </div>
                                                 <input
                                                     type={showPassword ? "text" : "password"}
@@ -1188,7 +1188,7 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                                                         setFormData({ ...formData, password: pwd });
                                                         setShowPassword(true);
                                                     }}
-                                                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-white/30 hover:text-accent hover:bg-accent/10 rounded-md transition-all"
+                                                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-white/60 hover:text-accent hover:bg-accent/10 rounded-md transition-all"
                                                     title="Generate Random"
                                                 >
                                                     <RefreshCw className="w-3.5 h-3.5" />
@@ -1222,7 +1222,7 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                                             </label>
                                             <div className="relative">
                                                 <div className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center bg-[#0c0c1e]/80 rounded pointer-events-none z-10">
-                                                    <Hash className="w-4 h-4 text-white/30" />
+                                                    <Hash className="w-4 h-4 text-white/60" />
                                                 </div>
                                                 <input
                                                     type="text"
@@ -1242,7 +1242,7 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                                             <label className="text-xs font-semibold text-white/50 ml-1 uppercase tracking-wide">Cardholder Name</label>
                                             <div className="relative">
                                                 <div className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center bg-[#0c0c1e]/80 rounded pointer-events-none z-10">
-                                                    <User className="w-4 h-4 text-white/30" />
+                                                    <User className="w-4 h-4 text-white/60" />
                                                 </div>
                                                 <input
                                                     type="text"
@@ -1258,7 +1258,7 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                                             <label className="text-xs font-semibold text-white/50 ml-1 uppercase tracking-wide">Card Number</label>
                                             <div className="relative">
                                                 <div className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center bg-[#0c0c1e]/80 rounded pointer-events-none z-10">
-                                                    <CreditCard className="w-4 h-4 text-white/30" />
+                                                    <CreditCard className="w-4 h-4 text-white/60" />
                                                 </div>
                                                 <input
                                                     type="text"
@@ -1293,7 +1293,7 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                                             <label className="text-xs font-semibold text-white/50 ml-1 uppercase tracking-wide">CVV / CVC</label>
                                             <div className="relative">
                                                 <div className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center bg-[#0c0c1e]/80 rounded pointer-events-none z-10">
-                                                    <Lock className="w-4 h-4 text-white/30" />
+                                                    <Lock className="w-4 h-4 text-white/60" />
                                                 </div>
                                                 <input
                                                     type="text"
@@ -1309,7 +1309,7 @@ export default function AddEditModal({ isOpen, onClose, onSave, initialData, def
                                             <label className="text-xs font-semibold text-white/50 ml-1 uppercase tracking-wide">PIN (Optional)</label>
                                             <div className="relative">
                                                 <div className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center bg-[#0c0c1e]/80 rounded pointer-events-none z-10">
-                                                    <Hash className="w-4 h-4 text-white/30" />
+                                                    <Hash className="w-4 h-4 text-white/60" />
                                                 </div>
                                                 <input
                                                     type="password"

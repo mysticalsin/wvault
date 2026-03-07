@@ -86,10 +86,13 @@ export default function MediaGallery() {
         const fileRes = await window.wvault.selectFile();
         if (!fileRes.success) return;
 
-        // If selectedFolder is set, pass it. credentialId is null to trigger "Secure Drive" container.
         const res = await window.wvault.addAttachment(null, fileRes.filePath, selectedFolder);
         if (res.success) {
             loadMedia();
+            // Ask if user wants to delete the source file
+            if (confirm(`File imported successfully. Delete the original file?\n\n${fileRes.filePath}`)) {
+                await window.wvault.deleteSourceFiles([fileRes.filePath]);
+            }
         } else {
             alert(res.error);
         }
@@ -101,14 +104,17 @@ export default function MediaGallery() {
         await processFolderImport(folderRes.folderPath);
     };
 
-    const processFolderImport = async (path) => {
-        const confirmImport = confirm(`Import and encrypt all files in "${path}"? This make take a moment.`);
+    const processFolderImport = async (folderPath) => {
+        const confirmImport = confirm(`Import and encrypt all files in "${folderPath}"? This may take a moment.`);
         if (!confirmImport) return;
 
-        const res = await window.wvault.importFolder(path);
+        const res = await window.wvault.importFolder(folderPath);
         if (res.success) {
-            alert(`Successfully imported folder "${res.folderName}" with ${res.count} encrypted files.`);
             loadFolders();
+            // Ask if user wants to delete the source folder
+            if (confirm(`Successfully imported "${res.folderName}" (${res.count} files).\n\nDelete the original folder?`)) {
+                await window.wvault.deleteSourceFolder(folderPath);
+            }
         } else {
             alert(res.error);
         }
@@ -132,18 +138,26 @@ export default function MediaGallery() {
         // Let's use `webkitGetAsEntry` if available for folder support
         const entries = [...e.dataTransfer.items].map(item => item.webkitGetAsEntry());
 
+        const importedFilePaths = [];
         for (const entry of entries) {
             if (entry.isFile) {
-                const file = items.find(f => f.name === entry.name); // Match file
-                if (file) await window.wvault.addAttachment(null, file.path, selectedFolder);
+                const file = items.find(f => f.name === entry.name);
+                if (file) {
+                    await window.wvault.addAttachment(null, file.path, selectedFolder);
+                    importedFilePaths.push(file.path);
+                }
             } else if (entry.isDirectory) {
-                // It's a folder!
-                // We need the full path. `File` object for folder usually has path.
-                const file = items.find(f => f.name === entry.name); // In Electron, File.path is full path
+                const file = items.find(f => f.name === entry.name);
                 if (file) await processFolderImport(file.path);
             }
         }
         loadMedia();
+        // Ask about deleting dropped files (folders handled in processFolderImport)
+        if (importedFilePaths.length > 0) {
+            if (confirm(`${importedFilePaths.length} file(s) imported. Delete the originals?`)) {
+                await window.wvault.deleteSourceFiles(importedFilePaths);
+            }
+        }
     };
 
     const [isDragging, setIsDragging] = useState(false);
@@ -238,7 +252,7 @@ export default function MediaGallery() {
                                 required
                             />
                             <div className="relative">
-                                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20" />
+                                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/60" />
                                 <input
                                     type="password"
                                     placeholder="Lock Password (Optional)"
@@ -281,7 +295,7 @@ export default function MediaGallery() {
                         </div>
 
                         {media.length === 0 ? (
-                            <div className="text-center mt-20 text-white/30">
+                            <div className="text-center mt-20 text-white/60">
                                 <Trash2 className="w-16 h-16 mx-auto mb-4 opacity-50" />
                                 <p>Trash is empty.</p>
                             </div>
@@ -296,7 +310,7 @@ export default function MediaGallery() {
                                             ) : ['.png', '.jpg', '.jpeg', '.gif'].includes(file.type) ? (
                                                 <img src={`glass-media://${file.file_id}`} className="w-full h-full object-cover" />
                                             ) : (
-                                                <FileText className="w-8 h-8 text-white/30" />
+                                                <FileText className="w-8 h-8 text-white/60" />
                                             )}
                                         </div>
                                         <div className="mt-2 px-1">
@@ -345,7 +359,7 @@ export default function MediaGallery() {
                                         ) : ['.png', '.jpg', '.jpeg', '.gif'].includes(file.type) ? (
                                             <img src={`glass-media://${file.file_id}`} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                                         ) : (
-                                            <div className="flex flex-col items-center justify-center text-white/30 group-hover:text-white/60 transition-colors">
+                                            <div className="flex flex-col items-center justify-center text-white/60 group-hover:text-white/60 transition-colors">
                                                 <FileText className="w-12 h-12 mb-2" />
                                                 <span className="text-xs uppercase font-bold">{file.type.replace('.', '')}</span>
                                             </div>
@@ -371,7 +385,7 @@ export default function MediaGallery() {
                                         </button>
                                     </div>
                                     <div className="mt-2 text-sm text-white/80 truncate px-1">{file.name}</div>
-                                    <div className="text-[10px] text-white/40 px-1 uppercase tracking-wide">
+                                    <div className="text-[10px] text-white/60 px-1 uppercase tracking-wide">
                                         {(file.size / 1024 / 1024).toFixed(1)} MB
                                     </div>
                                 </div>
@@ -379,7 +393,7 @@ export default function MediaGallery() {
                         </div>
 
                         {media.length === 0 && (
-                            <div className="text-center mt-20 text-white/30">
+                            <div className="text-center mt-20 text-white/60">
                                 <HardDrive className="w-16 h-16 mx-auto mb-4 opacity-50" />
                                 <p>No files found.</p>
                                 <button onClick={handleImport} className="mt-4 text-accent text-sm hover:underline">How to add files?</button>

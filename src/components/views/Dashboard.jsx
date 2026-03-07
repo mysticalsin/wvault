@@ -82,14 +82,14 @@ export default function Dashboard({ items, stats, onNavigate, onAdd, onLock, use
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center border border-cyan-400/15 ring-1 ring-cyan-400/10">
-                        <User className="w-6 h-6 text-cyan-300" />
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-fuchsia-500/20 to-violet-600/20 flex items-center justify-center border border-fuchsia-400/15 ring-1 ring-fuchsia-400/10">
+                        <User className="w-6 h-6 text-fuchsia-300" />
                     </div>
                     <div>
                         <h2 className="text-[28px] font-bold text-white/90" style={{ letterSpacing: '-0.03em' }}>
                             {timeOfDay}, <span className="wvault-gradient-text">{sanitizeText(displayName)}</span>
                         </h2>
-                        <p className="text-white/30 text-[13px]">Your vault is secure and up to date.</p>
+                        <p className="text-white/60 text-[13px]">Your vault is secure and up to date.</p>
                     </div>
                 </div>
                 <button
@@ -121,8 +121,8 @@ export default function Dashboard({ items, stats, onNavigate, onAdd, onLock, use
                 >
                     <div className="relative z-10 flex flex-col h-full">
                         <div className="flex items-center gap-2 mb-4">
-                            <Activity className="w-4 h-4 text-cyan-400" />
-                            <span className="text-[11px] font-bold text-cyan-400 uppercase tracking-widest">Vault Health</span>
+                            <Activity className="w-4 h-4 text-purple-400" />
+                            <span className="text-[11px] font-bold text-purple-400 uppercase tracking-widest">Vault Health</span>
                         </div>
 
                         {/* Circular progress ring */}
@@ -142,8 +142,8 @@ export default function Dashboard({ items, stats, onNavigate, onAdd, onLock, use
                                     />
                                     <defs>
                                         <linearGradient id="healthGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                            <stop offset="0%" stopColor="#22d3ee" />
-                                            <stop offset="100%" stopColor="#a78bfa" />
+                                            <stop offset="0%" stopColor="#FA93FA" />
+                                            <stop offset="100%" stopColor="#983AD6" />
                                         </linearGradient>
                                     </defs>
                                 </svg>
@@ -155,7 +155,7 @@ export default function Dashboard({ items, stats, onNavigate, onAdd, onLock, use
                         </div>
 
                         <div className="text-center mt-2">
-                            <p className="text-[11px] text-white/30">
+                            <p className="text-[11px] text-white/60">
                                 {stats.weak > 0 ? `${stats.weak} weak passwords found` : stats.reused > 0 ? `${stats.reused} reused passwords` : 'All systems nominal'}
                             </p>
                         </div>
@@ -169,12 +169,12 @@ export default function Dashboard({ items, stats, onNavigate, onAdd, onLock, use
                     transition={{ delay: 0.2 }}
                     className="glass-panel p-6 col-span-1 md:col-span-2"
                 >
-                    <h3 className="text-[11px] font-bold text-white/40 uppercase tracking-widest mb-4">Quick Actions</h3>
+                    <h3 className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-4">Quick Actions</h3>
                     <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
                         <ActionButton icon={Plus} label="New Item" onClick={onAdd} color="text-emerald-400" bg="bg-emerald-400/10" border="border-emerald-400/15" />
-                        <ActionButton icon={KeyRound} label="Logins" onClick={() => onNavigate('logins')} color="text-cyan-400" bg="bg-cyan-400/10" border="border-cyan-400/15" />
+                        <ActionButton icon={KeyRound} label="Logins" onClick={() => onNavigate('logins')} color="text-fuchsia-400" bg="bg-fuchsia-400/10" border="border-fuchsia-400/15" />
                         <ActionButton icon={CreditCard} label="Cards" onClick={() => onNavigate('cards')} color="text-purple-400" bg="bg-purple-400/10" border="border-purple-400/15" />
-                        <ActionButton icon={HardDrive} label="Drive" onClick={() => onNavigate('media')} color="text-cyan-400" bg="bg-cyan-400/10" border="border-cyan-400/15" />
+                        <ActionButton icon={HardDrive} label="Drive" onClick={() => onNavigate('media')} color="text-purple-400" bg="bg-purple-400/10" border="border-purple-400/15" />
                         <ActionButton icon={ShieldAlert} label="Audit" onClick={() => onNavigate('audit')} color="text-amber-400" bg="bg-amber-400/10" border="border-amber-400/15" />
                     </div>
                 </motion.div>
@@ -206,7 +206,7 @@ export default function Dashboard({ items, stats, onNavigate, onAdd, onLock, use
                         <h3 className="text-lg font-bold text-white/90 flex items-center gap-2">
                             <Clock className="w-4 h-4 text-accent" /> Recently Updated
                         </h3>
-                        <button onClick={() => onNavigate('vault')} className="text-xs text-white/40 hover:text-white transition-colors flex items-center gap-1">
+                        <button onClick={() => onNavigate('vault')} className="text-xs text-white/60 hover:text-white transition-colors flex items-center gap-1">
                             View All <ArrowRight className="w-3 h-3" />
                         </button>
                     </div>
@@ -214,7 +214,7 @@ export default function Dashboard({ items, stats, onNavigate, onAdd, onLock, use
                         {recentItems.length > 0 ? recentItems.map(item => (
                             <MiniRow key={item.id} item={item} onClick={() => onNavigate('vault')} />
                         )) : (
-                            <div className="text-center py-8 text-white/20 italic text-sm border border-white/5 rounded-xl bg-white/[0.02]">
+                            <div className="text-center py-8 text-white/60 italic text-sm border border-white/5 rounded-xl bg-white/[0.02]">
                                 No recent activity
                             </div>
                         )}
@@ -233,7 +233,7 @@ export default function Dashboard({ items, stats, onNavigate, onAdd, onLock, use
                             <Star className="w-4 h-4 text-amber-400" /> Favorites
                         </h3>
                         {favoriteItems.length > 0 && (
-                            <button onClick={() => onNavigate('vault')} className="text-xs text-white/40 hover:text-white transition-colors flex items-center gap-1">
+                            <button onClick={() => onNavigate('vault')} className="text-xs text-white/60 hover:text-white transition-colors flex items-center gap-1">
                                 View All <ArrowRight className="w-3 h-3" />
                             </button>
                         )}
@@ -245,7 +245,7 @@ export default function Dashboard({ items, stats, onNavigate, onAdd, onLock, use
                             ))}
                         </div>
                     ) : (
-                        <div className="flex flex-col items-center justify-center py-8 text-white/20 border border-white/5 rounded-xl bg-white/[0.02]">
+                        <div className="flex flex-col items-center justify-center py-8 text-white/60 border border-white/5 rounded-xl bg-white/[0.02]">
                             <Star className="w-8 h-8 mb-2 opacity-20" />
                             <span className="text-sm italic">Star items to see them here</span>
                         </div>
@@ -281,7 +281,7 @@ function StatCard({ label, value, icon: Icon, isAlert, delay }) {
             </div>
             <div>
                 <div className={`text-xl font-bold ${isAlert && value > 0 ? 'text-red-400' : 'text-white/90'}`} style={{ letterSpacing: '-0.02em' }}>{value}</div>
-                <div className="text-[11px] text-white/35 font-medium">{label}</div>
+                <div className="text-[11px] text-white/60 font-medium">{label}</div>
             </div>
         </motion.div>
     );
@@ -295,9 +295,9 @@ function MiniRow({ item, onClick }) {
             </div>
             <div className="flex-1 min-w-0">
                 <h4 className="text-[13px] font-medium text-white/85 truncate">{sanitizeText(item.service)}</h4>
-                <p className="text-[11px] text-white/30 truncate">{sanitizeText(item.username)}</p>
+                <p className="text-[11px] text-white/60 truncate">{sanitizeText(item.username)}</p>
             </div>
-            <ArrowRight className="w-3.5 h-3.5 text-white/0 group-hover:text-white/30 transition-all duration-200" />
+            <ArrowRight className="w-3.5 h-3.5 text-white/0 group-hover:text-white/60 transition-all duration-200" />
         </div>
     );
 }
@@ -311,7 +311,7 @@ function MiniCard({ item, onClick }) {
             <div className="min-w-0">
                 {/* BUG FIX 3: Sanitized service and username */}
                 <h4 className="text-sm font-medium text-white/90 truncate">{sanitizeText(item.service)}</h4>
-                <p className="text-xs text-white/40 truncate">{sanitizeText(item.username)}</p>
+                <p className="text-xs text-white/60 truncate">{sanitizeText(item.username)}</p>
             </div>
         </div>
     );

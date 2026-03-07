@@ -70,7 +70,7 @@ function ForgotPasswordReset() {
             <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="w-full py-3 text-white/25 hover:text-white/50 transition-colors text-[13px]"
+                className="w-full py-3 text-white/60 hover:text-white/50 transition-colors text-[13px]"
             >
                 Forgot password?
             </button>
@@ -92,7 +92,7 @@ function ForgotPasswordReset() {
                 <button
                     type="button"
                     onClick={() => setStep(0)}
-                    className="flex-1 py-2 rounded-xl text-[13px] text-white/40 hover:text-white/60 border border-white/[0.06] hover:bg-white/[0.04] transition-all"
+                    className="flex-1 py-2 rounded-xl text-[13px] text-white/60 hover:text-white/60 border border-white/[0.06] hover:bg-white/[0.04] transition-all"
                 >
                     Cancel
                 </button>
@@ -258,11 +258,11 @@ export default function LoginScreen({ isFirstRun, onLogin, onSetup }) {
     // Success state after setup
     if (setupSuccess) {
         return (
-            <div className="w-full h-full flex flex-col bg-[#0a0a0f] relative overflow-hidden">
+            <div className="w-full h-full flex flex-col bg-[#010101] relative overflow-hidden">
                 {/* Animated background */}
                 <div className="absolute inset-0 overflow-hidden">
-                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/15 rounded-full blur-[128px] animate-pulse" />
-                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/15 rounded-full blur-[128px] animate-pulse delay-1000" />
+                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-fuchsia-500/15 rounded-full blur-[128px] animate-pulse" />
+                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/15 rounded-full blur-[128px] animate-pulse delay-1000" />
                 </div>
 
                 <div className="flex-1 flex items-center justify-center p-6 relative z-10">
@@ -280,7 +280,7 @@ export default function LoginScreen({ isFirstRun, onLogin, onSetup }) {
                             <CheckCircle2 className="w-12 h-12 text-emerald-400" />
                         </motion.div>
                         <h2 className="text-3xl font-bold text-white mb-3" style={{ letterSpacing: '-0.03em' }}>Vault Created!</h2>
-                        <p className="text-white/40 text-[15px]">Welcome to WVault, {name}. Your secure world awaits.</p>
+                        <p className="text-white/60 text-[15px]">Welcome to WVault, {name}. Your secure world awaits.</p>
                     </motion.div>
                 </div>
             </div>
@@ -288,12 +288,12 @@ export default function LoginScreen({ isFirstRun, onLogin, onSetup }) {
     }
 
     return (
-        <div className="w-full h-full flex flex-col bg-[#0a0a0f] relative overflow-hidden">
+        <div className="w-full h-full flex flex-col bg-[#010101] relative overflow-hidden">
             {/* Animated gradient background */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[150px]" />
-                <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[150px]" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-600/5 rounded-full blur-[200px]" />
+                <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-fuchsia-600/10 rounded-full blur-[150px]" />
+                <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-purple-700/10 rounded-full blur-[150px]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-600/5 rounded-full blur-[200px]" />
             </div>
 
             {/* Grid pattern overlay */}
@@ -321,9 +321,9 @@ export default function LoginScreen({ isFirstRun, onLogin, onSetup }) {
                             className="relative"
                         >
                             {/* Glow halo */}
-                            <div className="absolute inset-0 rounded-[28px] bg-gradient-to-br from-cyan-500/30 to-purple-600/30 blur-xl animate-pulse" />
-                            <div className="relative w-[88px] h-[88px] rounded-[28px] bg-gradient-to-br from-[#0d1525] to-[#0f1a30] flex items-center justify-center border border-white/10 shadow-lg shadow-cyan-500/10">
-                                <Shield className="w-11 h-11 text-cyan-400" />
+                            <div className="absolute inset-0 rounded-[28px] bg-gradient-to-br from-fuchsia-500/30 to-purple-700/30 blur-xl animate-pulse" />
+                            <div className="relative w-[88px] h-[88px] rounded-[28px] bg-gradient-to-br from-[#0a0512] to-[#120822] flex items-center justify-center border border-white/10 shadow-lg shadow-purple-500/10">
+                                <Shield className="w-11 h-11 text-fuchsia-400" />
                             </div>
                         </motion.div>
                     </div>
@@ -333,7 +333,7 @@ export default function LoginScreen({ isFirstRun, onLogin, onSetup }) {
                         <h1 className="text-[34px] font-bold text-white mb-3" style={{ letterSpacing: '-0.03em' }}>
                             {isFirstRun ? 'Create Your Vault' : 'Welcome Back'}
                         </h1>
-                        <p className="text-white/35 text-[15px] leading-relaxed max-w-xs mx-auto">
+                        <p className="text-white/60 text-[15px] leading-relaxed max-w-xs mx-auto">
                             {isFirstRun
                                 ? 'Secure your digital life with military-grade encryption'
                                 : 'Unlock your vault to access your secure world'
@@ -359,7 +359,7 @@ export default function LoginScreen({ isFirstRun, onLogin, onSetup }) {
                                     <>
                                         <BiometricIcon
                                             method={biometricStatus.method}
-                                            className="w-6 h-6 text-cyan-400 group-hover:scale-110 transition-transform"
+                                            className="w-6 h-6 text-fuchsia-400 group-hover:scale-110 transition-transform"
                                         />
                                         <span className="text-white font-medium">
                                             Unlock with {biometricStatus.method === 'touch-id' ? 'Touch ID' :
@@ -372,7 +372,7 @@ export default function LoginScreen({ isFirstRun, onLogin, onSetup }) {
 
                             <div className="flex items-center gap-4 my-6">
                                 <div className="flex-1 h-px bg-white/10" />
-                                <span className="text-white/30 text-sm">or</span>
+                                <span className="text-white/60 text-sm">or</span>
                                 <div className="flex-1 h-px bg-white/10" />
                             </div>
                         </motion.div>
@@ -387,7 +387,7 @@ export default function LoginScreen({ isFirstRun, onLogin, onSetup }) {
                                 className="space-y-4"
                             >
                                 <div className="relative">
-                                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" />
+                                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
                                     <input
                                         type="text"
                                         value={name}
@@ -400,7 +400,7 @@ export default function LoginScreen({ isFirstRun, onLogin, onSetup }) {
                                         autoFocus
                                         autoComplete="name"
                                         aria-label="Your name"
-                                        className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl pl-12 pr-4 py-4.5 text-white placeholder:text-white/25 focus:outline-none focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/30 focus:bg-white/[0.06] transition-all text-[15px]"
+                                        className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl pl-12 pr-4 py-4.5 text-white placeholder:text-white/60 focus:outline-none focus:border-purple-500/40 focus:ring-1 focus:ring-purple-500/30 focus:bg-white/[0.06] transition-all text-[15px]"
                                     />
                                 </div>
                             </motion.div>
@@ -414,7 +414,7 @@ export default function LoginScreen({ isFirstRun, onLogin, onSetup }) {
                             >
                                 {/* Password Input */}
                                 <div className="relative">
-                                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" />
+                                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
                                     <input
                                         type={showPassword ? 'text' : 'password'}
                                         value={password}
@@ -426,14 +426,14 @@ export default function LoginScreen({ isFirstRun, onLogin, onSetup }) {
                                         autoComplete={isFirstRun ? 'new-password' : 'current-password'}
                                         aria-label={isFirstRun ? 'Create master password' : 'Enter master password'}
                                         aria-describedby="password-requirements"
-                                        className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl pl-12 pr-12 py-4.5 text-white placeholder:text-white/25 focus:outline-none focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/30 focus:bg-white/[0.06] transition-all text-[15px]"
+                                        className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl pl-12 pr-12 py-4.5 text-white placeholder:text-white/60 focus:outline-none focus:border-purple-500/40 focus:ring-1 focus:ring-purple-500/30 focus:bg-white/[0.06] transition-all text-[15px]"
                                         autoFocus={!isFirstRun}
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
                                         aria-label={showPassword ? 'Hide password' : 'Show password'}
-                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors"
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white/60 transition-colors"
                                     >
                                         {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                     </button>
@@ -452,7 +452,7 @@ export default function LoginScreen({ isFirstRun, onLogin, onSetup }) {
                                                     key={i}
                                                     className={`flex-1 rounded-full transition-all duration-500 ${i < passwordStrength.score
                                                         ? passwordStrength.score >= 4 ? 'bg-emerald-500 shadow-sm shadow-emerald-500/30' :
-                                                            passwordStrength.score >= 3 ? 'bg-cyan-500 shadow-sm shadow-cyan-500/30' :
+                                                            passwordStrength.score >= 3 ? 'bg-purple-500 shadow-sm shadow-purple-500/30' :
                                                                 passwordStrength.score >= 2 ? 'bg-amber-500 shadow-sm shadow-amber-500/30' : 'bg-red-500 shadow-sm shadow-red-500/30'
                                                         : 'bg-white/[0.06]'
                                                         }`}
@@ -468,7 +468,7 @@ export default function LoginScreen({ isFirstRun, onLogin, onSetup }) {
                                 {/* Confirm Password */}
                                 {isFirstRun && (
                                     <div className="relative">
-                                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" />
+                                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
                                         <input
                                             type={showPassword ? 'text' : 'password'}
                                             value={confirmPassword}
@@ -479,7 +479,7 @@ export default function LoginScreen({ isFirstRun, onLogin, onSetup }) {
                                             placeholder="Confirm Password"
                                             autoComplete="new-password"
                                             aria-label="Confirm master password"
-                                            className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl pl-12 pr-4 py-4.5 text-white placeholder:text-white/25 focus:outline-none focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/30 focus:bg-white/[0.06] transition-all text-[15px]"
+                                            className="w-full bg-white/[0.04] border border-white/[0.08] rounded-2xl pl-12 pr-4 py-4.5 text-white placeholder:text-white/60 focus:outline-none focus:border-purple-500/40 focus:ring-1 focus:ring-purple-500/30 focus:bg-white/[0.06] transition-all text-[15px]"
                                         />
                                     </div>
                                 )}
@@ -520,7 +520,7 @@ export default function LoginScreen({ isFirstRun, onLogin, onSetup }) {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full py-4.5 rounded-2xl bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white font-semibold shadow-lg shadow-cyan-500/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group text-[15px]"
+                            className="w-full py-4.5 rounded-2xl bg-gradient-to-r from-fuchsia-600 to-purple-700 hover:from-fuchsia-500 hover:to-purple-600 text-white font-semibold shadow-lg shadow-fuchsia-500/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group text-[15px]"
                         >
                             {loading ? (
                                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -537,7 +537,7 @@ export default function LoginScreen({ isFirstRun, onLogin, onSetup }) {
                             <button
                                 type="button"
                                 onClick={() => setStep(1)}
-                                className="w-full py-3 text-white/40 hover:text-white/60 transition-colors text-sm"
+                                className="w-full py-3 text-white/60 hover:text-white/60 transition-colors text-sm"
                             >
                                 ← Back
                             </button>
@@ -550,7 +550,7 @@ export default function LoginScreen({ isFirstRun, onLogin, onSetup }) {
                     </form>
 
                     {/* Footer */}
-                    <div className="mt-8 flex items-center justify-center gap-2 text-white/20 text-xs">
+                    <div className="mt-8 flex items-center justify-center gap-2 text-white/60 text-xs">
                         <Sparkles className="w-3 h-3" />
                         <span>Zero-knowledge • AES-256-GCM • Offline-first</span>
                     </div>

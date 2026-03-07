@@ -29,9 +29,9 @@ function WelcomeStep({ onNext, userName, setUserName }) {
             <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-600/20 flex items-center justify-center border border-white/10"
+                className="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-fuchsia-500/20 to-purple-600/20 flex items-center justify-center border border-white/10"
             >
-                <Shield className="w-12 h-12 text-indigo-400" />
+                <Shield className="w-12 h-12 text-purple-400" />
             </motion.div>
             
             <div>
@@ -46,20 +46,20 @@ function WelcomeStep({ onNext, userName, setUserName }) {
 
             <div className="space-y-4">
                 <div className="relative max-w-xs mx-auto">
-                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" />
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
                     <input
                         type="text"
                         value={userName}
                         onChange={(e) => setUserName(e.target.value)}
                         placeholder="What should we call you?"
-                        className="w-full bg-white/5 border border-white/10 rounded-xl pl-12 pr-4 py-4 text-white placeholder:text-white/30 focus:outline-none focus:border-indigo-500/50 text-center"
+                        className="w-full bg-white/5 border border-white/10 rounded-xl pl-12 pr-4 py-4 text-white placeholder:text-white/60 focus:outline-none focus:border-fuchsia-500/50 text-center"
                     />
                 </div>
                 
                 <button
                     onClick={onNext}
                     disabled={!userName.trim()}
-                    className="w-full max-w-xs mx-auto py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
+                    className="w-full max-w-xs mx-auto py-4 rounded-xl bg-gradient-to-r from-fuchsia-600 to-purple-600 text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
                 >
                     Get Started
                     <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -93,7 +93,7 @@ function SecurityStep({ onNext, onBack, password, setPassword, confirmPassword, 
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Master Password"
-                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white placeholder:text-white/30 focus:outline-none focus:border-indigo-500/50"
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white placeholder:text-white/60 focus:outline-none focus:border-fuchsia-500/50"
                     />
                     
                     {/* Strength Indicator */}
@@ -127,7 +127,7 @@ function SecurityStep({ onNext, onBack, password, setPassword, confirmPassword, 
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Confirm Password"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white placeholder:text-white/30 focus:outline-none focus:border-indigo-500/50"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white placeholder:text-white/60 focus:outline-none focus:border-fuchsia-500/50"
                 />
 
                 {/* Critical Warning */}
@@ -151,7 +151,7 @@ function SecurityStep({ onNext, onBack, password, setPassword, confirmPassword, 
                 <button
                     onClick={onNext}
                     disabled={!password || password !== confirmPassword || strength.score < 2}
-                    className="flex-1 py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 py-4 rounded-xl bg-gradient-to-r from-fuchsia-600 to-purple-600 text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     Continue
                 </button>
@@ -221,7 +221,7 @@ function BiometricStep({ onNext, onSkip, biometricStatus }) {
                 
                 <button
                     onClick={onSkip}
-                    className="w-full py-3 text-white/40 hover:text-white/60 text-sm"
+                    className="w-full py-3 text-white/60 hover:text-white/60 text-sm"
                 >
                     Skip for now
                 </button>
@@ -256,7 +256,7 @@ function CompleteStep({ userName, onFinish }) {
 
             <button
                 onClick={onFinish}
-                className="w-full max-w-xs mx-auto py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold"
+                className="w-full max-w-xs mx-auto py-4 rounded-xl bg-gradient-to-r from-fuchsia-600 to-purple-600 text-white font-semibold"
             >
                 Open My Vault
             </button>
@@ -309,7 +309,7 @@ export default function OnboardingFlow({ onComplete }) {
         <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center p-6">
             {/* Background */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-[128px]" />
+                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-fuchsia-600/10 rounded-full blur-[128px]" />
                 <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[128px]" />
             </div>
 
@@ -325,15 +325,15 @@ export default function OnboardingFlow({ onComplete }) {
                             <React.Fragment key={step.id}>
                                 <motion.div
                                     animate={{
-                                        backgroundColor: isActive || isCompleted ? 'rgba(99, 102, 241, 0.2)' : 'rgba(255, 255, 255, 0.05)',
-                                        borderColor: isActive ? 'rgba(99, 102, 241, 0.5)' : isCompleted ? 'rgba(99, 102, 241, 0.3)' : 'rgba(255, 255, 255, 0.1)',
+                                        backgroundColor: isActive || isCompleted ? 'rgba(201, 103, 232, 0.2)' : 'rgba(255, 255, 255, 0.05)',
+                                        borderColor: isActive ? 'rgba(201, 103, 232, 0.5)' : isCompleted ? 'rgba(201, 103, 232, 0.3)' : 'rgba(255, 255, 255, 0.1)',
                                     }}
                                     className="w-10 h-10 rounded-full flex items-center justify-center border"
                                 >
-                                    <Icon className={`w-5 h-5 ${isActive || isCompleted ? 'text-indigo-400' : 'text-white/30'}`} />
+                                    <Icon className={`w-5 h-5 ${isActive || isCompleted ? 'text-purple-400' : 'text-white/60'}`} />
                                 </motion.div>
                                 {index < steps.length - 1 && (
-                                    <div className={`w-8 h-0.5 ${isCompleted ? 'bg-indigo-500/50' : 'bg-white/10'}`} />
+                                    <div className={`w-8 h-0.5 ${isCompleted ? 'bg-fuchsia-500/50' : 'bg-white/10'}`} />
                                 )}
                             </React.Fragment>
                         );
@@ -390,7 +390,7 @@ export default function OnboardingFlow({ onComplete }) {
                         <div
                             key={index}
                             className={`w-2 h-2 rounded-full transition-colors ${
-                                index === currentStep ? 'bg-indigo-500' : 'bg-white/20'
+                                index === currentStep ? 'bg-fuchsia-500' : 'bg-white/20'
                             }`}
                         />
                     ))}

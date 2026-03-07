@@ -17,6 +17,18 @@ const { app, BrowserWindow, ipcMain, dialog, Menu, shell, clipboard, globalShort
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
+const os = require('os');
+
+// DEBUG: Log file for troubleshooting
+const _logPath = path.join(os.homedir(), 'wvault-debug.log');
+function debugLog(msg) {
+    const line = `[${new Date().toISOString()}] ${msg}\n`;
+    try { fs.appendFileSync(_logPath, line); } catch(e) {}
+    console.log(msg);
+}
+// Clear old log on fresh start
+try { fs.writeFileSync(_logPath, `=== WVault Debug Log ${new Date().toISOString()} ===\n`); } catch(e) {}
+debugLog('Main process starting...');
 
 // Import modular components
 const {
@@ -31,9 +43,12 @@ const {
     encryptAttachment,
     decryptAttachment,
     deriveAttachmentKey,
+    encryptField,
+    decryptField,
     validatePasswordStrength,
     generateSecureRandom,
     generateVaultId,
+    hashData,
     timingSafeEqual
 } = require('./src/main/security/crypto');
 
@@ -53,6 +68,10 @@ const {
 
 // Import TOTP generator
 const { generateTOTP } = require('./totp');
+
+// Import Encrypted-Vault integration
+const { registerEncryptedVaultHandlers } = require('./src/main/encrypted-vault/ipc');
+const encryptedVaultOps = require('./src/main/encrypted-vault/ops');
 
 // ============================================================================
 // STATE MANAGEMENT
@@ -153,23 +172,20 @@ function setWindowsSecurePermissions(filePath) {
     if (process.platform !== 'win32') return;
 
     try {
-        const { execSync } = require('child_process');
+        const { execFileSync } = require('child_process');
         const user = process.env.USERNAME || process.env.USER;
 
-        const psCommand = `
-            $path = '${filePath.replace(/'/g, "''")}';
-            $acl = Get-Acl $path;
-            $acl.SetAccessRuleProtection($true, $false);
-            $rule = New-Object System.Security.AccessControl.FileSystemAccessRule(
-                '${user}', 'FullControl', 'Allow'
-            );
-            $acl.SetAccessRule($rule);
-            Set-Acl $path $acl;
-        `;
-
-        execSync(`powershell.exe -Command "${psCommand}"`, {
+        // Use icacls with execFileSync (array args, no shell interpretation)
+        // to prevent command injection via filePath or username
+        execFileSync('icacls', [
+            filePath,
+            '/inheritance:r',
+            '/grant:r',
+            `${user}:(F)`
+        ], {
             stdio: 'ignore',
-            timeout: 5000
+            timeout: 5000,
+            windowsHide: true
         });
     } catch (e) {
         try {
@@ -240,6 +256,9 @@ function lockVault() {
         state.db = null;
     }
 
+    // Also lock any open encrypted vault
+    encryptedVaultOps.lockVault();
+
     state.isDirty = false;
     invalidateCache();
 
@@ -296,6 +315,10 @@ function saveVault() {
 
         fs.renameSync(tempPath, state.vaultPath);
         setWindowsSecurePermissions(state.vaultPath);
+
+        // Write integrity hash for corruption detection on next load
+        const integrityPath = state.vaultPath + '.sha256';
+        fs.writeFileSync(integrityPath, hashData(encryptedBuffer));
 
         if (fs.existsSync(backupPath)) {
             fs.unlinkSync(backupPath);
@@ -586,7 +609,7 @@ function registerIpcHandlers() {
 
         const passwordCheck = validatePasswordStrength(password);
         if (!passwordCheck.valid) {
-            return { success: false, error: passwordCheck.error };
+            return { success: false, error: passwordCheck.feedback?.join('. ') || 'Password too weak' };
         }
 
         if (!name || typeof name !== 'string' || name.trim().length === 0) {
@@ -599,8 +622,11 @@ function registerIpcHandlers() {
             initSchema();
 
             secureMasterPassword.set(password);
-            const salt = generateSecureRandom(SECURITY.SALT_LENGTH);
-            state.encryptionKey = deriveKey(password, salt);
+            // Generate a persistent attachment salt and store it in the DB
+            // so attachment keys are deterministic across sessions
+            const attachSalt = generateSecureRandom(SECURITY.SALT_LENGTH);
+            state.encryptionKey = deriveKey(password, attachSalt);
+            state.db.run("INSERT OR REPLACE INTO settings (key, value) VALUES ('attachment_salt', ?)", [attachSalt.toString('hex')]);
 
             const trimmedName = name.trim().replace(/[<>"']/g, '');
             state.db.run("INSERT OR REPLACE INTO settings (key, value) VALUES ('user_name', ?)", [trimmedName]);
@@ -642,6 +668,18 @@ function registerIpcHandlers() {
 
         try {
             const encryptedBuffer = fs.readFileSync(state.vaultPath);
+
+            // Verify vault integrity before expensive KDF + decryption
+            const integrityPath = state.vaultPath + '.sha256';
+            if (fs.existsSync(integrityPath)) {
+                const expectedHash = fs.readFileSync(integrityPath, 'utf8').trim();
+                const actualHash = hashData(encryptedBuffer);
+                if (expectedHash !== actualHash) {
+                    console.error('[Auth] Vault integrity check failed — file may be corrupted');
+                    return { success: false, error: 'Vault file appears corrupted. A backup may be available at ' + state.vaultPath + '.backup' };
+                }
+            }
+
             const decryptedBuffer = decryptVault(encryptedBuffer, password);
 
             const sqlInstance = await initSqlJs();
@@ -649,8 +687,18 @@ function registerIpcHandlers() {
             initSchema();
 
             secureMasterPassword.set(password);
-            const salt = generateSecureRandom(SECURITY.SALT_LENGTH);
-            state.encryptionKey = deriveKey(password, salt);
+            // Read the persistent attachment salt from DB (deterministic across sessions)
+            const saltResult = state.db.exec("SELECT value FROM settings WHERE key = 'attachment_salt'");
+            let attachSalt;
+            if (saltResult?.[0]?.values?.[0]?.[0]) {
+                attachSalt = Buffer.from(saltResult[0].values[0][0], 'hex');
+            } else {
+                // Legacy vault without stored salt — generate and persist one
+                attachSalt = generateSecureRandom(SECURITY.SALT_LENGTH);
+                state.db.run("INSERT OR REPLACE INTO settings (key, value) VALUES ('attachment_salt', ?)", [attachSalt.toString('hex')]);
+                saveVault();
+            }
+            state.encryptionKey = deriveKey(password, attachSalt);
 
             resetAutoLockTimer(SECURITY.AUTO_LOCK_MS);
             state.loginAttempts.delete(deviceId);
@@ -757,15 +805,18 @@ function registerIpcHandlers() {
                 const validId = validateCredentialId(id);
                 if (!validId) return { success: false, error: 'Invalid credential ID' };
 
-                // Save history
+                // Save history (encrypted)
                 try {
                     const current = state.db.exec("SELECT password FROM credentials WHERE id = ?", [validId]);
                     if (current?.[0]?.values?.[0]) {
                         const oldPassword = current[0].values[0][0];
                         if (oldPassword !== password) {
+                            const historyValue = state.encryptionKey
+                                ? JSON.stringify(encryptField(oldPassword, state.encryptionKey))
+                                : oldPassword;
                             state.db.run(
                                 "INSERT INTO credential_history (credential_id, password) VALUES (?, ?)",
-                                [validId, oldPassword]
+                                [validId, historyValue]
                             );
                         }
                     }
@@ -1447,6 +1498,121 @@ function registerIpcHandlers() {
         return { success: true, valid: true, count: state.auditLog.length };
     });
 
+    // Move vault storage to a different drive/SSD
+    ipcMain.handle('vault:moveStorage', async () => {
+        if (!state.db) return { success: false, error: 'Vault not open' };
+
+        try {
+            const result = await dialog.showOpenDialog(state.mainWindow, {
+                title: 'Choose New Storage Location (SSD/Drive)',
+                properties: ['openDirectory'],
+            });
+            if (result.canceled || !result.filePaths.length) {
+                return { success: false, error: 'Cancelled' };
+            }
+
+            const newBasePath = result.filePaths[0];
+            const oldBasePath = path.dirname(state.vaultPath);
+
+            if (newBasePath === oldBasePath) {
+                return { success: false, error: 'Same location selected' };
+            }
+
+            // Copy vault file
+            const oldVault = state.vaultPath;
+            const newVault = path.join(newBasePath, 'wvault.vault');
+            fs.copyFileSync(oldVault, newVault);
+
+            // Copy attachments directory
+            const oldAttach = path.join(oldBasePath, 'attachments');
+            const newAttach = path.join(newBasePath, 'attachments');
+            if (fs.existsSync(oldAttach)) {
+                fs.mkdirSync(newAttach, { recursive: true });
+                const files = fs.readdirSync(oldAttach);
+                for (const file of files) {
+                    fs.copyFileSync(path.join(oldAttach, file), path.join(newAttach, file));
+                }
+            }
+
+            // Update config
+            state.config.vaultLocation = newBasePath;
+            saveConfig();
+
+            addAuditEntry('VAULT_MOVED', { from: oldBasePath, to: newBasePath });
+
+            // Restart the app to reinitialize with the new location
+            app.relaunch();
+            app.exit(0);
+
+            return { success: true };
+        } catch (e) {
+            console.error('[MoveStorage] Error:', e);
+            return { success: false, error: e.message };
+        }
+    });
+
+    // Delete source file(s) after successful import
+    ipcMain.handle('vault:deleteSourceFiles', async (_event, { paths }) => {
+        if (!Array.isArray(paths)) return { success: false, error: 'Invalid paths' };
+
+        const vaultDir = path.resolve(path.dirname(state.vaultPath));
+        const blockedDirs = [
+            process.env.SystemRoot || 'C:\\Windows',
+            process.env.ProgramFiles || 'C:\\Program Files',
+            process.env.ProgramData || 'C:\\ProgramData',
+            path.dirname(app.getPath('exe')),
+        ].filter(Boolean).map(d => path.resolve(d).toLowerCase());
+
+        let deleted = 0;
+        const errors = [];
+        for (const filePath of paths) {
+            try {
+                if (typeof filePath !== 'string') continue;
+                const resolved = path.resolve(filePath);
+
+                // Block path traversal, vault directory, and system directories
+                if (filePath.includes('..')) { errors.push(`${path.basename(filePath)}: path traversal blocked`); continue; }
+                if (resolved.toLowerCase().startsWith(vaultDir.toLowerCase())) { errors.push(`${path.basename(filePath)}: cannot delete vault files`); continue; }
+                if (blockedDirs.some(d => resolved.toLowerCase().startsWith(d))) { errors.push(`${path.basename(filePath)}: system path blocked`); continue; }
+
+                if (fs.existsSync(resolved) && fs.statSync(resolved).isFile()) {
+                    fs.unlinkSync(resolved);
+                    deleted++;
+                }
+            } catch (e) {
+                errors.push(`${path.basename(filePath)}: ${e.message}`);
+            }
+        }
+        return { success: true, deleted, errors: errors.length > 0 ? errors : undefined };
+    });
+
+    // Delete source folder after successful import
+    ipcMain.handle('vault:deleteSourceFolder', async (_event, { folderPath }) => {
+        try {
+            if (typeof folderPath !== 'string' || !fs.existsSync(folderPath)) {
+                return { success: false, error: 'Folder not found' };
+            }
+            const resolved = path.resolve(folderPath);
+            const vaultDir = path.resolve(path.dirname(state.vaultPath));
+            const blockedDirs = [
+                process.env.SystemRoot || 'C:\\Windows',
+                process.env.ProgramFiles || 'C:\\Program Files',
+                process.env.ProgramData || 'C:\\ProgramData',
+                path.dirname(app.getPath('exe')),
+                app.getPath('userData'),
+            ].filter(Boolean).map(d => path.resolve(d).toLowerCase());
+
+            if (folderPath.includes('..')) return { success: false, error: 'Path traversal blocked' };
+            if (resolved.toLowerCase().startsWith(vaultDir.toLowerCase())) return { success: false, error: 'Cannot delete vault directory' };
+            if (blockedDirs.some(d => resolved.toLowerCase().startsWith(d))) return { success: false, error: 'System path blocked' };
+
+            fs.rmSync(resolved, { recursive: true, force: true });
+            return { success: true };
+        } catch (e) {
+            return { success: false, error: e.message };
+        }
+    });
+
     // Clipboard copy audit: logs service name ONLY (never the plaintext password)
     ipcMain.handle('vault:logCopy', (_event, data) => {
         const service = (data && typeof data.service === 'string') ? data.service.substring(0, 256) : 'unknown';
@@ -1556,7 +1722,17 @@ function registerIpcHandlers() {
             if (!result || !result.length) return { success: true, history: [] };
             const columns = result[0].columns;
             const history = result[0].values.map(row => {
-                const obj = {}; columns.forEach((col, i) => { obj[col] = row[i]; }); return obj;
+                const obj = {}; columns.forEach((col, i) => { obj[col] = row[i]; });
+                // Decrypt password history entries (handles both encrypted JSON and legacy plaintext)
+                if (obj.password && state.encryptionKey) {
+                    try {
+                        const parsed = JSON.parse(obj.password);
+                        if (parsed && parsed.data && parsed.iv && parsed.authTag) {
+                            obj.password = decryptField(parsed, state.encryptionKey);
+                        }
+                    } catch { /* legacy plaintext — keep as-is */ }
+                }
+                return obj;
             });
             return { success: true, history };
         } catch (e) {
@@ -1624,11 +1800,24 @@ function registerIpcHandlers() {
                 [validHistId, validCredId]
             );
             if (!histResult || !histResult[0]?.values?.[0]) return { success: false, error: 'History entry not found' };
-            const restoredPassword = histResult[0].values[0][0];
-            // Save current password to history
+            // Decrypt restored password if encrypted
+            let restoredPassword = histResult[0].values[0][0];
+            if (state.encryptionKey && restoredPassword) {
+                try {
+                    const parsed = JSON.parse(restoredPassword);
+                    if (parsed && parsed.data && parsed.iv && parsed.authTag) {
+                        restoredPassword = decryptField(parsed, state.encryptionKey);
+                    }
+                } catch { /* legacy plaintext */ }
+            }
+            // Save current password to history (encrypted)
             const cur = state.db.exec('SELECT password FROM credentials WHERE id = ?', [validCredId]);
             if (cur?.[0]?.values?.[0]) {
-                state.db.run('INSERT INTO credential_history (credential_id, password) VALUES (?, ?)', [validCredId, cur[0].values[0][0]]);
+                const curPw = cur[0].values[0][0];
+                const historyValue = state.encryptionKey
+                    ? JSON.stringify(encryptField(curPw, state.encryptionKey))
+                    : curPw;
+                state.db.run('INSERT INTO credential_history (credential_id, password) VALUES (?, ?)', [validCredId, historyValue]);
             }
             state.db.run("UPDATE credentials SET password = ?, updated_at = datetime('now') WHERE id = ?", [restoredPassword, validCredId]);
             saveVault();
@@ -1652,7 +1841,7 @@ function createWindow() {
         minWidth: 1000,
         minHeight: 700,
         frame: false,
-        backgroundColor: '#0a0a0f',
+        backgroundColor: '#010101',
         titleBarStyle: 'hidden',
         title: 'WVault',
         webPreferences: {
@@ -1690,14 +1879,38 @@ function createWindow() {
     });
 
     // Load the app
+    debugLog('NODE_ENV=' + (process.env.NODE_ENV || 'undefined'));
+    const distPath = path.join(__dirname, 'dist', 'index.html');
+    debugLog('dist exists=' + fs.existsSync(distPath) + ' path=' + distPath);
+
     if (process.env.NODE_ENV === 'development') {
+        debugLog('Loading dev URL...');
         state.mainWindow.loadURL('http://localhost:5173');
     } else {
-        state.mainWindow.loadFile(path.join(__dirname, 'dist', 'index.html'));
+        debugLog('Loading dist/index.html...');
+        state.mainWindow.loadFile(distPath);
     }
 
+    // Log ALL renderer messages to debug file
+    state.mainWindow.webContents.on('render-process-gone', (event, details) => {
+        debugLog('[CRASH] Render process gone: ' + details.reason + ' exit=' + details.exitCode);
+    });
+    state.mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription, validatedURL) => {
+        debugLog('[LOAD-FAIL] code=' + errorCode + ' desc=' + errorDescription + ' url=' + validatedURL);
+    });
+    state.mainWindow.webContents.on('did-finish-load', () => {
+        debugLog('[LOADED] Page finished loading successfully');
+    });
+    state.mainWindow.webContents.on('console-message', (event, level, message) => {
+        // Log ALL console messages (0=verbose, 1=info, 2=warning, 3=error)
+        const labels = ['VERBOSE', 'INFO', 'WARN', 'ERROR'];
+        debugLog('[RENDERER/' + (labels[level]||level) + '] ' + message);
+    });
+
     state.mainWindow.once('ready-to-show', () => {
+        debugLog('[WINDOW] ready-to-show fired, showing window');
         state.mainWindow.show();
+        state.mainWindow.webContents.openDevTools();
     });
 
     // Handle external links
@@ -1719,6 +1932,20 @@ function createWindow() {
 // APP LIFECYCLE
 // ============================================================================
 
+// Register glass-media:// as privileged scheme — MUST be before app.isReady()
+protocol.registerSchemesAsPrivileged([
+    {
+        scheme: 'glass-media',
+        privileges: {
+            standard: true,
+            secure: true,
+            supportFetchAPI: true,
+            stream: true,
+            bypassCSP: false,
+        },
+    },
+]);
+
 const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
     app.quit();
@@ -1733,6 +1960,7 @@ if (!gotTheLock) {
     app.whenReady().then(async () => {
         await init();
         registerIpcHandlers();
+        registerEncryptedVaultHandlers();
 
         // Register glass-media:// protocol to serve encrypted attachments
         protocol.handle('glass-media', async (request) => {

@@ -17,6 +17,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "argon2": "^0.44.0",
     "clsx": "^2.1.1",
     "csv-parse": "^6.1.0",
     "framer-motion": "^12.34.0",

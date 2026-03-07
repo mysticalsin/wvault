@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Content Security Policy - Allow favicon service only -->
     <meta http-equiv="Content-Security-Policy" content="
-      default-src 'self'; 
-      script-src 'self'; 
-      style-src 'self' 'unsafe-inline'; 
-      img-src 'self' data: https://icons.duckduckgo.com https://*.duckduckgo.com; 
+      default-src 'self';
+      script-src 'self';
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data: glass-media: https://icons.duckduckgo.com https://*.duckduckgo.com;
       connect-src 'self' https://icons.duckduckgo.com;
       font-src 'self';
-      media-src 'self';
+      media-src 'self' glass-media:;
       object-src 'none';
       frame-src 'none';
       base-uri 'self';

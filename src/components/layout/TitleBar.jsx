@@ -6,15 +6,15 @@ export default function TitleBar({ onLock, onSettings, isLoggedIn }) {
         <header className="drag-region h-11 flex items-center justify-between px-4 border-b border-white/[0.04] bg-black/30 backdrop-blur-md relative z-50 flex-shrink-0">
             {/* Logo */}
             <div className="flex items-center gap-2.5 no-drag">
-                <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-cyan-500/30 to-purple-500/30 flex items-center justify-center border border-cyan-400/15">
-                    <Shield className="w-3.5 h-3.5 text-cyan-300" strokeWidth={2} />
+                <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-fuchsia-500/30 to-purple-600/30 flex items-center justify-center border border-purple-400/15">
+                    <Shield className="w-3.5 h-3.5 text-fuchsia-300" strokeWidth={2} />
                 </div>
                 <span className="text-xs font-semibold tracking-wide text-secondary uppercase">
                     WVault
                 </span>
                 {isLoggedIn && (
-                    <span className="flex items-center gap-1 text-[10px] text-white/20 ml-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400/40 animate-pulse" />
+                    <span className="flex items-center gap-1 text-[10px] text-white/60 ml-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-purple-400/40 animate-pulse" />
                         Unlocked
                     </span>
                 )}

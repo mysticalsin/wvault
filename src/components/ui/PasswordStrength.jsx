@@ -76,11 +76,11 @@ export default function PasswordStrength({ password }) {
             </div>
             {/* Labels — accessible description (not color-only) */}
             <div className="flex items-center justify-between">
-                <span className="text-[10px] text-white/25 uppercase tracking-widest">Strength</span>
+                <span className="text-[10px] text-white/60 uppercase tracking-widest">Strength</span>
                 <div className="flex items-center gap-2">
                     {/* Entropy display — helps assess passphrase quality */}
                     {bits > 0 && (
-                        <span className="text-[10px] text-white/30" aria-label={`${bits} bits of entropy`}>
+                        <span className="text-[10px] text-white/60" aria-label={`${bits} bits of entropy`}>
                             {bits} bits
                         </span>
                     )}

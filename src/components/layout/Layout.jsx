@@ -7,13 +7,13 @@ import Particles from '../3d/Particles';
 const Toast = ({ message, progress }) => (
     <div className="absolute bottom-6 right-6 z-[100] animate-slide-up">
         <div className="flex items-center gap-3 px-4 py-3 rounded-2xl border border-white/[0.08] shadow-2xl" style={{ background: 'rgba(14, 18, 28, 0.97)', backdropFilter: 'blur(24px)' }}>
-            <div className="w-1 h-6 rounded-full flex-shrink-0" style={{ background: 'linear-gradient(to bottom, #22d3ee, #a78bfa)' }} />
+            <div className="w-1 h-6 rounded-full flex-shrink-0" style={{ background: 'linear-gradient(to bottom, #FA93FA, #983AD6)' }} />
             <div className="text-[13px] font-medium text-white/85">{message}</div>
             {progress > 0 && (
                 <div className="w-12 h-1 bg-white/10 rounded-full overflow-hidden ml-1">
                     <div
                         className="h-full rounded-full transition-all duration-100 ease-linear"
-                        style={{ width: `${progress}%`, background: 'linear-gradient(to right, #22d3ee, #a78bfa)' }}
+                        style={{ width: `${progress}%`, background: 'linear-gradient(to right, #FA93FA, #983AD6)' }}
                     />
                 </div>
             )}
