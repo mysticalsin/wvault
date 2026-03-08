@@ -1,20 +1,21 @@
 import React, { useState, useEffect, useCallback, Suspense, lazy } from 'react';
-import Layout from './components/Layout';
-import Dashboard from './components/Dashboard';
-import LoginScreen from './components/LoginScreen';
-import PinScreen from './components/PinScreen';
-import AddEditModal from './components/AddEditModal';
-import ImportModal from './components/ImportModal';
-import ConfirmDialog from './components/ConfirmDialog';
-import GlassOverlay from './components/GlassOverlay';
+import Layout from './components/layout/Layout';
+import Dashboard from './components/views/Dashboard';
+import LoginScreen from './components/auth/LoginScreen';
+import PinScreen from './components/auth/PinScreen';
+import AddEditModal from './components/modals/AddEditModal';
+import ImportModal from './components/modals/ImportModal';
+import ConfirmDialog from './components/modals/ConfirmDialog';
+import GlassOverlay from './components/ui/GlassOverlay';
 
 // OPTIMIZATION: Lazy load heavy components for better initial load time
-const VaultView = lazy(() => import('./components/VaultView'));
-const GeneratorView = lazy(() => import('./components/GeneratorView'));
-const SettingsView = lazy(() => import('./components/SettingsView'));
-const AuditView = lazy(() => import('./components/AuditView'));
-const MediaGallery = lazy(() => import('./components/MediaGallery.jsx'));
-const NoteEditor = lazy(() => import('./components/NoteEditor'));
+const VaultView = lazy(() => import('./components/views/VaultView'));
+const GeneratorView = lazy(() => import('./components/views/GeneratorView'));
+const SettingsView = lazy(() => import('./components/views/SettingsView'));
+const AuditView = lazy(() => import('./components/views/AuditView'));
+const MediaGallery = lazy(() => import('./components/views/MediaGallery.jsx'));
+const NoteEditor = lazy(() => import('./components/views/NoteEditor'));
+const EncryptedVaultView = lazy(() => import('./components/views/EncryptedVaultView'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -22,6 +23,43 @@ const PageLoader = () => (
         <div className="w-8 h-8 border-2 border-accent/30 border-t-accent rounded-full animate-spin" />
     </div>
 );
+
+// Error boundary to prevent entire app from crashing when a view throws
+class ViewErrorBoundary extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false, error: null };
+    }
+    static getDerivedStateFromError(error) {
+        return { hasError: true, error };
+    }
+    componentDidCatch(error, info) {
+        console.error('[ViewErrorBoundary]', error, info);
+    }
+    render() {
+        if (this.state.hasError) {
+            return (
+                <div className="flex-1 flex items-center justify-center p-8">
+                    <div className="max-w-lg text-center space-y-4">
+                        <div className="text-red-400 text-lg font-bold">Something went wrong</div>
+                        <pre className="text-xs text-white/50 bg-white/5 rounded-lg p-4 text-left overflow-auto max-h-48">
+                            {this.state.error?.message || 'Unknown error'}
+                            {'\n'}
+                            {this.state.error?.stack}
+                        </pre>
+                        <button
+                            onClick={() => this.setState({ hasError: false, error: null })}
+                            className="px-4 py-2 rounded-lg bg-accent/20 text-accent text-sm hover:bg-accent/30"
+                        >
+                            Try Again
+                        </button>
+                    </div>
+                </div>
+            );
+        }
+        return this.props.children;
+    }
+}
 
 export default function App() {
     // ── ALL hooks must be declared before any conditional return (React Rules of Hooks) ──
@@ -89,11 +127,14 @@ export default function App() {
         localStorage.removeItem('wvault-user-name');
         localStorage.removeItem('glassvault-user-name');
 
-        // Restore Theme
-        const savedTheme = localStorage.getItem('wvault-theme') || localStorage.getItem('glassvault-theme');
-        if (savedTheme) {
-            document.documentElement.style.setProperty('--accent', savedTheme);
-            document.documentElement.style.setProperty('--accent-glow', `rgba(${savedTheme}, 0.25)`);
+        // Clean stale theme keys — accent is now set via CSS design tokens
+        localStorage.removeItem('wvault-theme');
+        localStorage.removeItem('glassvault-theme');
+        localStorage.removeItem('glassvault-theme-id');
+        // Migrate old theme IDs to aurora defaults
+        const oldThemeId = localStorage.getItem('wvault-theme-id');
+        if (oldThemeId && !['orchid', 'bloom', 'violet', 'rose', 'emerald', 'amber'].includes(oldThemeId)) {
+            localStorage.removeItem('wvault-theme-id');
         }
 
         const handleKeyDown = (e) => {
@@ -317,6 +358,15 @@ export default function App() {
                 <Suspense fallback={<PageLoader />}>
                     <MediaGallery />
                 </Suspense>
+            );
+            break;
+        case 'fileVault':
+            content = (
+                <ViewErrorBoundary>
+                    <Suspense fallback={<PageLoader />}>
+                        <EncryptedVaultView />
+                    </Suspense>
+                </ViewErrorBoundary>
             );
             break;
         case 'notes':

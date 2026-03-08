@@ -35,7 +35,7 @@ const Particles = ({ count = 20 }) => {
             {particles.map((p) => (
                 <motion.div
                     key={p.id}
-                    className="absolute rounded-full bg-accent/20 blur-[1px]"
+                    className="absolute rounded-full bg-fuchsia-400/20 blur-[1px]"
                     style={{
                         width: p.size,
                         height: p.size,

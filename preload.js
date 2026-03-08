@@ -72,6 +72,9 @@ contextBridge.exposeInMainWorld('wvault', {
     addAttachment: (credentialId, filePath, folderId) => ipcRenderer.invoke('vault:addAttachment', { credentialId, filePath, folderId }),
     saveAttachment: (fileId) => ipcRenderer.invoke('vault:saveAttachment', fileId),
     importFolder: (folderPath) => ipcRenderer.invoke('vault:importFolder', folderPath),
+    moveStorage: () => ipcRenderer.invoke('vault:moveStorage'),
+    deleteSourceFiles: (paths) => ipcRenderer.invoke('vault:deleteSourceFiles', { paths }),
+    deleteSourceFolder: (folderPath) => ipcRenderer.invoke('vault:deleteSourceFolder', { folderPath }),
 
     // Export
     exportVault: (format) => ipcRenderer.invoke('vault:export', { format }),
@@ -80,6 +83,26 @@ contextBridge.exposeInMainWorld('wvault', {
     getAuditLog: () => ipcRenderer.invoke('wv:getAuditLog'),
     verifyAuditChain: () => ipcRenderer.invoke('wv:verifyAuditChain'),
     logCopy: (service) => ipcRenderer.invoke('vault:logCopy', { service }),
+
+    // Encrypted Vault (EFS1 format)
+    ev: {
+        checkArgon2: () => ipcRenderer.invoke('ev:checkArgon2'),
+        isOpen: () => ipcRenderer.invoke('ev:isOpen'),
+        init: (vaultDir, passphrase) => ipcRenderer.invoke('ev:init', { vaultDir, passphrase }),
+        open: (vaultDir, passphrase) => ipcRenderer.invoke('ev:open', { vaultDir, passphrase }),
+        lock: () => ipcRenderer.invoke('ev:lock'),
+        list: () => ipcRenderer.invoke('ev:list'),
+        addFile: (filePath) => ipcRenderer.invoke('ev:addFile', { filePath }),
+        addFolder: (folderPath) => ipcRenderer.invoke('ev:addFolder', { folderPath }),
+        extract: (fileId) => ipcRenderer.invoke('ev:extract', { fileId }),
+        remove: (fileIds) => ipcRenderer.invoke('ev:remove', { fileIds }),
+        rename: (fileId, newName) => ipcRenderer.invoke('ev:rename', { fileId, newName }),
+        rotateKey: (oldPass, newPass) => ipcRenderer.invoke('ev:rotateKey', { oldPass, newPass }),
+        selectVaultDir: () => ipcRenderer.invoke('ev:selectVaultDir'),
+        selectNewVaultDir: () => ipcRenderer.invoke('ev:selectNewVaultDir'),
+        selectFiles: () => ipcRenderer.invoke('ev:selectFiles'),
+        selectFolderToAdd: () => ipcRenderer.invoke('ev:selectFolderToAdd'),
+    },
 
     // Events
     onAutoLocked: (callback) => {

@@ -11,6 +11,7 @@
 
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import useFocusTrap from '../../hooks/useFocusTrap';
 import { 
     AlertTriangle, X, Trash2, Lock, LogOut, 
     RefreshCw, ShieldAlert, CheckCircle2
@@ -88,7 +89,8 @@ export default function ConfirmDialog({
     confirmationText = 'DELETE'
 }) {
     const [inputValue, setInputValue] = React.useState('');
-    
+    const focusTrapRef = useFocusTrap(isOpen);
+
     const config = dialogConfigs[type];
     const Icon = config.icon;
     
@@ -135,6 +137,10 @@ export default function ConfirmDialog({
                     
                     {/* Dialog */}
                     <motion.div
+                        ref={focusTrapRef}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label={title || config.title}
                         initial={{ scale: 0.95, opacity: 0, y: 20 }}
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.95, opacity: 0, y: 20 }}
@@ -164,7 +170,7 @@ export default function ConfirmDialog({
                             
                             <button
                                 onClick={onClose}
-                                className="p-2 rounded-lg text-white/40 hover:text-white/60 hover:bg-white/5 transition-colors"
+                                className="p-2 rounded-lg text-white/60 hover:text-white/60 hover:bg-white/5 transition-colors"
                             >
                                 <X className="w-5 h-5" />
                             </button>
@@ -181,7 +187,7 @@ export default function ConfirmDialog({
                                     value={inputValue}
                                     onChange={(e) => setInputValue(e.target.value)}
                                     placeholder={confirmationText}
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-red-500/50 text-center tracking-widest uppercase font-mono"
+                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/60 focus:outline-none focus:border-red-500/50 text-center tracking-widest uppercase font-mono"
                                     autoFocus
                                 />
                             </div>

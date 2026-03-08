@@ -1,6 +1,6 @@
 {
   "name": "wvault",
-  "version": "5.1.0",
+  "version": "5.5.0",
   "author": "Tony Walteur",
   "description": "WVault — Zero-knowledge password manager with biometric authentication",
   "main": "main.js",
@@ -17,6 +17,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "argon2": "^0.44.0",
     "clsx": "^2.1.1",
     "csv-parse": "^6.1.0",
     "framer-motion": "^12.34.0",

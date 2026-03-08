@@ -167,7 +167,7 @@ function derivePinHash(pin, salt) {
     return crypto.pbkdf2Sync(
         normalized,
         salt,
-        10000, // Lower iterations for PIN (frequent use)
+        SECURITY.PIN_ITERATIONS,
         SECURITY.PIN_KEYLEN,
         SECURITY.PBKDF2_DIGEST
     );

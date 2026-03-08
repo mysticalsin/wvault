@@ -5,85 +5,18 @@
 @tailwind utilities;
 
 /* ============================================================================
-   WVAULT CELESTIAL THEME SYSTEM v3.0
+   WVAULT AURORA THEME v6.0
    "Where Your World is Secured"
-   
-   Color Palette:
-   - Deep Void: #0B0F19 (Primary Background)
-   - Wormhole Teal: #00D9FF (Primary Accent)
-   - Nebula Purple: #8B5CF6 (Secondary Accent)
-   - Supernova Red: #FF2D55 (Security/Lock)
-   - Aurora Green: #00E676 (Success)
+
+   Aurora Gradient Palette:
+   - Pink Bloom: #FA93FA
+   - Orchid: #C967E8
+   - Deep Violet: #983AD6
+   - True Black: #010101
    ============================================================================ */
 
 :root {
   color-scheme: dark;
-
-  /* ── Backgrounds ─────────────────────────────────────────── */
-  --bg-primary: #0B0F19;
-  --bg-secondary: #111827;
-  --bg-tertiary: #1a2035;
-  --bg-elevated: #222838;
-
-  /* ── Glass Surfaces ──────────────────────────────────────── */
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-bg-hover: rgba(255, 255, 255, 0.06);
-  --glass-bg-active: rgba(255, 255, 255, 0.09);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-hover: rgba(255, 255, 255, 0.15);
-  --glass-border-active: rgba(255, 255, 255, 0.22);
-  --glass-highlight: rgba(255, 255, 255, 0.1);
-  --glass-shadow: rgba(0, 0, 0, 0.4);
-
-  /* ── Text ────────────────────────────────────────────────── */
-  --text-primary: rgba(255, 255, 255, 0.95);
-  --text-secondary: rgba(255, 255, 255, 0.65);
-  --text-tertiary: rgba(255, 255, 255, 0.45);
-  --text-muted: rgba(255, 255, 255, 0.25);
-
-  /* ── Brand Accents ───────────────────────────────────────── */
-  --accent: 0 217 255;
-  --accent-light: 139 92 246;
-  --accent-glow: rgba(0, 217, 255, 0.4);
-  --accent-subtle: rgba(0, 217, 255, 0.1);
-  --wormhole-teal: #00D9FF;
-  --nebula-purple: #8B5CF6;
-  --supernova-red: #FF2D55;
-  --aurora-green: #00E676;
-  --void-black: #0B0F19;
-  --starlight: #FAF9F7;
-
-  /* ── Semantic Status ─────────────────────────────────────── */
-  --success: 0 230 118;
-  --warning: 255 171 64;
-  --error: 255 45 85;
-  --info: 0 217 255;
-
-  /* ── Elevation (shadow depth) ────────────────────────────── */
-  --elevation-1: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
-  --elevation-2: 0 4px 16px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.2);
-  --elevation-3: 0 12px 40px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.25);
-  --elevation-4: 0 24px 60px rgba(0, 0, 0, 0.5), 0 8px 20px rgba(0, 0, 0, 0.3);
-
-  /* ── Liquid Effects ──────────────────────────────────────── */
-  --blur-sm: 12px;
-  --blur-md: 20px;
-  --blur-lg: 40px;
-  --blur-xl: 80px;
-  --saturate: 1.8;
-
-  /* ── Radius ──────────────────────────────────────────────── */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --radius-full: 9999px;
-
-  /* ── Transitions ─────────────────────────────────────────── */
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* ─── Base Styles ─────────────────────────────────────────────────────────── */
@@ -101,7 +34,7 @@ body,
 #root {
   height: 100%;
   overflow: hidden;
-  background: var(--bg-primary);
+  background: #010101;
   color: var(--text-primary);
   font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -109,31 +42,23 @@ body,
   letter-spacing: -0.01em;
 }
 
-/* ─── Animated Mesh Gradient Background ───────────────────────────────────── */
+/* ─── Aurora Mesh Gradient Background ─────────────────────────────────────── */
 
 .vault-bg {
   position: fixed;
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(var(--accent), 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(var(--accent), 0.1) 0%, transparent 50%),
-    radial-gradient(ellipse 100% 100% at 50% 0%, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(250, 147, 250, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(152, 58, 214, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 100% 100% at 50% 0%, #0a0a0f 0%, #010101 100%);
   animation: meshMove 20s ease-in-out infinite alternate;
 }
 
 @keyframes meshMove {
-  0% {
-    background-position: 0% 0%, 100% 100%, center;
-  }
-
-  50% {
-    background-position: 100% 0%, 0% 100%, center;
-  }
-
-  100% {
-    background-position: 0% 100%, 100% 0%, center;
-  }
+  0% { background-position: 0% 0%, 100% 100%, center; }
+  50% { background-position: 100% 0%, 0% 100%, center; }
+  100% { background-position: 0% 100%, 100% 0%, center; }
 }
 
 /* ─── Noise Texture Overlay ───────────────────────────────────────────────── */
@@ -143,195 +68,52 @@ body,
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.03;
+  opacity: 0.025;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   mix-blend-mode: overlay;
 }
 
-/* ─── Glass Panels ────────────────────────────────────────────────────────── */
+/* ─── Aurora Constellation Background ─────────────────────────────────────── */
 
-.glass-panel {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate));
-  -webkit-backdrop-filter: blur(var(--blur-md)) saturate(var(--saturate));
-  box-shadow:
-    0 4px 24px var(--glass-shadow),
-    inset 0 1px 0 var(--glass-highlight),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
-  transition:
-    background var(--transition-base),
-    border-color var(--transition-base),
-    box-shadow var(--transition-base),
-    transform var(--transition-bounce);
-}
-
-.glass-panel:hover {
-  background: var(--glass-bg-hover);
-  border-color: var(--glass-border-hover);
-  box-shadow:
-    0 8px 40px var(--glass-shadow),
-    inset 0 1px 0 var(--glass-highlight),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
-}
-
-/* Floating variant - more elevated */
-.glass-panel-floating {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-xl);
-  backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate));
-  -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(var(--saturate));
-  box-shadow:
-    0 25px 50px -12px var(--glass-shadow),
-    inset 0 1px 0 var(--glass-highlight);
-  transform: translateZ(0);
-  transition: all var(--transition-bounce);
-}
-
-.glass-panel-floating:hover {
-  transform: translateY(-2px) translateZ(0);
-  box-shadow:
-    0 35px 60px -15px var(--glass-shadow),
-    inset 0 1px 0 var(--glass-highlight);
-}
-
-/* ─── Liquid Glass Inputs ─────────────────────────────────────────────────── */
-
-.glass-input {
-  width: 100%;
-  padding: 12px 16px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  color: var(--text-primary);
-  font-size: 14px;
-  font-weight: 400;
-  outline: none;
-  transition: all var(--transition-base);
-  backdrop-filter: blur(var(--blur-sm));
-  -webkit-backdrop-filter: blur(var(--blur-sm));
-}
-
-.glass-input::placeholder {
-  color: var(--text-muted);
-  font-weight: 400;
-}
-
-.glass-input:hover {
-  background: var(--glass-bg-hover);
-  border-color: var(--glass-border-hover);
-}
-
-.glass-input:focus {
-  background: var(--glass-bg-hover);
-  border-color: rgba(var(--accent), 0.5);
-  box-shadow:
-    0 0 0 3px rgba(var(--accent), 0.1),
-    inset 0 1px 0 var(--glass-highlight);
-}
-
-/* ─── Liquid Glass Buttons ────────────────────────────────────────────────── */
-
-.glass-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 18px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  color: var(--text-secondary);
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all var(--transition-bounce);
-  backdrop-filter: blur(var(--blur-sm));
-  -webkit-backdrop-filter: blur(var(--blur-sm));
-  position: relative;
-  overflow: hidden;
-}
-
-.glass-button::before {
-  content: '';
-  position: absolute;
+.wvault-constellation-bg {
+  position: fixed;
   inset: 0;
-  background: linear-gradient(180deg, var(--glass-highlight) 0%, transparent 100%);
-  opacity: 0.5;
-  transition: opacity var(--transition-base);
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 100% 100% at 50% 50%, transparent 0%, #010101 100%),
+    radial-gradient(circle at 15% 25%, rgba(250, 147, 250, 0.07) 0%, transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(152, 58, 214, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(201, 103, 232, 0.03) 0%, transparent 60%),
+    radial-gradient(circle at 70% 20%, rgba(250, 147, 250, 0.04) 0%, transparent 30%),
+    radial-gradient(circle at 30% 80%, rgba(152, 58, 214, 0.04) 0%, transparent 30%);
 }
 
-.glass-button:hover {
-  background: var(--glass-bg-hover);
-  border-color: var(--glass-border-hover);
-  color: var(--text-primary);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 20px var(--glass-shadow);
+/* ─── Aurora Star Field ───────────────────────────────────────────────────── */
+
+.wvault-stars {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 20px 30px, rgba(250, 147, 250, 0.25), transparent),
+    radial-gradient(1.5px 1.5px at 40px 70px, rgba(201, 103, 232, 0.18), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.2), transparent),
+    radial-gradient(1.5px 1.5px at 130px 80px, rgba(250, 147, 250, 0.15), transparent),
+    radial-gradient(1px 1px at 200px 150px, rgba(201, 103, 232, 0.2), transparent),
+    radial-gradient(1.5px 1.5px at 300px 200px, rgba(152, 58, 214, 0.18), transparent),
+    radial-gradient(1px 1px at 350px 120px, rgba(255, 255, 255, 0.15), transparent);
+  background-repeat: repeat;
+  background-size: 400px 300px;
+  animation: starTwinkle 4s ease-in-out infinite;
 }
 
-.glass-button:hover::before {
-  opacity: 0.8;
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.01); }
 }
 
-.glass-button:active {
-  transform: translateY(0) scale(0.98);
-  transition-duration: var(--transition-fast);
-}
-
-/* Primary Button - Liquid Gradient */
-.glass-button-primary {
-  background: rgba(var(--accent), 0.15);
-  border-color: rgba(var(--accent), 0.3);
-  color: rgba(var(--accent), 1);
-  font-weight: 600;
-}
-
-.glass-button-primary:hover {
-  background: rgba(var(--accent), 0.25);
-  border-color: rgba(var(--accent), 0.5);
-  box-shadow:
-    0 4px 24px rgba(var(--accent), 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-/* ─── Liquid Scrollbar (auto-hide, thinner) ───────────────────────────────── */
-
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-full);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.16);
-}
-
-/* Auto-thin scrollbar when not hovered */
-*:not(:hover)> ::-webkit-scrollbar {
-  width: 4px;
-}
-
-/* ─── Drag Region (Title Bar) ─────────────────────────────────────────────── */
-
-.drag-region {
-  -webkit-app-region: drag;
-}
-
-.no-drag {
-  -webkit-app-region: no-drag;
-}
-
-/* ─── Modal Overlay - Liquid Blur ─────────────────────────────────────────── */
+/* ─── Modal Overlay — Aurora Blur ─────────────────────────────────────────── */
 
 .modal-overlay {
   position: fixed;
@@ -340,7 +122,7 @@ body,
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(1, 1, 1, 0.7);
   backdrop-filter: blur(var(--blur-md));
   -webkit-backdrop-filter: blur(var(--blur-md));
   padding: 16px;
@@ -363,69 +145,41 @@ body,
 }
 
 @keyframes overlayFadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes overlayFadeOut {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 @keyframes modalLiquidIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.9) translateY(20px);
-    filter: blur(10px);
-  }
-
-  50% {
-    filter: blur(0px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-    filter: blur(0px);
-  }
+  0% { opacity: 0; transform: scale(0.9) translateY(20px); filter: blur(10px); }
+  50% { filter: blur(0px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0px); }
 }
 
 @keyframes modalLiquidOut {
-  from {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-
-  to {
-    opacity: 0;
-    transform: scale(0.95) translateY(-10px);
-  }
+  from { opacity: 1; transform: scale(1) translateY(0); }
+  to { opacity: 0; transform: scale(0.95) translateY(-10px); }
 }
 
-/* ─── Toast Notifications - Floating Glass ────────────────────────────────── */
+/* ─── Toast Notifications — Aurora Glass ──────────────────────────────────── */
 
 .toast {
   position: fixed;
   bottom: 24px;
   right: 24px;
   padding: 16px 24px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
+  background: rgba(10, 10, 18, 0.95);
+  border: 1px solid rgba(201, 103, 232, 0.15);
   border-radius: var(--radius-lg);
   backdrop-filter: blur(var(--blur-lg));
   -webkit-backdrop-filter: blur(var(--blur-lg));
   box-shadow:
-    0 10px 40px var(--glass-shadow),
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(201, 103, 232, 0.08),
     inset 0 1px 0 var(--glass-highlight);
   color: var(--text-primary);
   font-size: 14px;
@@ -435,192 +189,49 @@ body,
 }
 
 @keyframes toastSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* ─── Liquid Selection ────────────────────────────────────────────────────── */
+/* ─── Drag Region (Title Bar) ─────────────────────────────────────────────── */
 
-::selection {
-  background: rgba(var(--accent), 0.3);
-  color: var(--text-primary);
-}
+.drag-region { -webkit-app-region: drag; }
+.no-drag { -webkit-app-region: no-drag; }
 
-/* ─── Focus Visible ───────────────────────────────────────────────────────── */
+/* ─── Aurora Utility Classes ──────────────────────────────────────────────── */
 
-:focus-visible {
-  outline: 2px solid rgba(var(--accent), 0.5);
-  outline-offset: 2px;
-}
-
-/* ─── Animations ──────────────────────────────────────────────────────────── */
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pulse-slow {
-
-  0%,
-  100% {
-    opacity: 0.5;
-  }
-
-  50% {
-    opacity: 0.8;
-  }
-}
-
-@keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
-}
-
-.animate-slide-up {
-  animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.animate-slide-down {
-  animation: slideDown 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.animate-pulse-slow {
-  animation: pulse-slow 3s ease-in-out infinite;
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-/* ─── Utility Classes ─────────────────────────────────────────────────────── */
-
-.text-gradient {
-  background: linear-gradient(135deg, rgba(var(--accent), 1) 0%, rgba(var(--accent-light), 1) 100%);
+.wvault-gradient-text {
+  background: linear-gradient(135deg, #FA93FA 0%, #C967E8 50%, #983AD6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.glow-accent {
-  box-shadow: 0 0 40px rgba(var(--accent), 0.3);
+.text-gradient {
+  background: linear-gradient(135deg, #FA93FA 0%, #C967E8 50%, #983AD6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Theme-aware text colors */
-.text-primary {
-  color: var(--text-primary);
-}
+.wvault-glow-pink { box-shadow: 0 0 40px rgba(250, 147, 250, 0.3); }
+.wvault-glow-orchid { box-shadow: 0 0 40px rgba(201, 103, 232, 0.3); }
+.wvault-glow-violet { box-shadow: 0 0 40px rgba(152, 58, 214, 0.3); }
+.glow-accent { box-shadow: 0 0 40px rgba(201, 103, 232, 0.25); }
 
-.text-secondary {
-  color: var(--text-secondary);
-}
-
-.text-tertiary {
-  color: var(--text-tertiary);
-}
-
-.text-muted {
-  color: var(--text-muted);
-}
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-tertiary { color: var(--text-tertiary); }
+.text-muted { color: var(--text-muted); }
 
 /* ── Typography Utilities ─────────────────────────────────────────────────── */
 
-.text-display {
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-}
-
-.text-headline {
-  font-size: 22px;
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-}
-
-.text-title {
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 1.35;
-  letter-spacing: -0.01em;
-}
-
-.text-body {
-  font-size: 15px;
-  line-height: 1.5;
-}
-
-.text-caption {
-  font-size: 12px;
-  line-height: 1.4;
-  letter-spacing: 0.01em;
-}
-
-.text-overline {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-}
+.text-display { font-size: 32px; font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; }
+.text-headline { font-size: 22px; font-weight: 600; line-height: 1.25; letter-spacing: -0.02em; }
+.text-title { font-size: 17px; font-weight: 600; line-height: 1.35; letter-spacing: -0.01em; }
+.text-body { font-size: 15px; line-height: 1.5; }
+.text-caption { font-size: 12px; line-height: 1.4; letter-spacing: 0.01em; }
+.text-overline { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); }
 
 /* ── Section Utilities ────────────────────────────────────────────────────── */
 
@@ -630,171 +241,66 @@ body,
   justify-content: space-between;
   padding-bottom: 12px;
   margin-bottom: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(201, 103, 232, 0.08);
 }
 
-.divider-subtle {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.06);
-  border: none;
-  margin: 16px 0;
-}
+.divider-subtle { height: 1px; background: rgba(255, 255, 255, 0.04); border: none; margin: 16px 0; }
+.divider-glow { height: 1px; background: linear-gradient(90deg, transparent, rgba(201, 103, 232, 0.2), transparent); border: none; margin: 24px 0; }
 
-.divider-glow {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(var(--accent), 0.2), transparent);
-  border: none;
-  margin: 24px 0;
-}
-
-/* ── Page-level smooth reveal ─────────────────────────────────────────────── */
+/* ── Page Reveal ──────────────────────────────────────────────────────────── */
 
 @keyframes pageReveal {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.page-reveal {
-  animation: pageReveal 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
+.page-reveal { animation: pageReveal 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 
-/* ─── Hide Scrollbar (when needed) ────────────────────────────────────────── */
+/* ─── Hide Scrollbar ──────────────────────────────────────────────────────── */
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* ─── Small Viewport Adjustments ──────────────────────────────────────────── */
 
-@media (max-height: 600px) {
-  .glass-panel {
-    padding: 12px;
-  }
-}
-
+@media (max-height: 600px) { .glass-panel { padding: 12px; } }
 @media (max-width: 480px) {
-  .glass-panel {
-    border-radius: var(--radius-md);
-  }
-
-  .glass-input {
-    padding: 10px 12px;
-    font-size: 16px;
-  }
+  .glass-panel { border-radius: var(--radius-md); }
+  .glass-input { padding: 10px 12px; font-size: 16px; }
 }
 
 /* ─── Reduced Motion ──────────────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-
-  .vault-bg {
-    animation: none;
-  }
+  .vault-bg { animation: none; }
+  .wvault-stars { animation: none; }
 }
 
-/* ============================================================================
-   WVAULT CELESTIAL ANIMATIONS & EFFECTS
-   ============================================================================ */
+/* ─── Aurora Special Effects ──────────────────────────────────────────────── */
 
-/* WVault Logo Constellation Animation */
-@keyframes constellationPulse {
-
-  0%,
-  100% {
-    opacity: 0.6;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-}
-
-@keyframes wormholeSpin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes auroraWave {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@keyframes starTwinkle {
-
-  0%,
-  100% {
-    opacity: 0.3;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 1;
-    transform: scale(1.2);
-  }
-}
-
-/* WVault Wormhole Portal Effect */
 .wormhole-portal {
   background: conic-gradient(from 0deg,
-      transparent 0deg,
-      rgba(0, 217, 255, 0.1) 60deg,
-      rgba(139, 92, 246, 0.2) 120deg,
-      rgba(0, 217, 255, 0.1) 180deg,
-      transparent 240deg,
-      rgba(139, 92, 246, 0.2) 300deg,
-      transparent 360deg);
+    transparent 0deg,
+    rgba(250, 147, 250, 0.1) 60deg,
+    rgba(201, 103, 232, 0.2) 120deg,
+    rgba(250, 147, 250, 0.1) 180deg,
+    transparent 240deg,
+    rgba(152, 58, 214, 0.2) 300deg,
+    transparent 360deg);
   animation: wormholeSpin 20s linear infinite;
   border-radius: 50%;
 }
 
-.wormhole-portal::before {
-  content: '';
-  position: absolute;
-  inset: 10%;
-  background: radial-gradient(circle,
-      rgba(0, 217, 255, 0.3) 0%,
-      transparent 70%);
-  border-radius: 50%;
-  animation: wormholeSpin 15s linear infinite reverse;
+@keyframes wormholeSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-/* WVault Liquid Glass Toggle (Notes Control) */
 .wvault-toggle {
   position: relative;
   width: 52px;
@@ -803,14 +309,12 @@ body,
   background: var(--bg-tertiary);
   cursor: pointer;
   transition: background 450ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .wvault-toggle.active {
-  background: linear-gradient(135deg, var(--wormhole-teal), var(--nebula-purple));
-  box-shadow:
-    inset 0 2px 4px rgba(0, 0, 0, 0.2),
-    0 0 24px rgba(0, 217, 255, 0.4);
+  background: linear-gradient(135deg, #FA93FA, #983AD6);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 24px rgba(201, 103, 232, 0.4);
 }
 
 .wvault-toggle-thumb {
@@ -829,45 +333,12 @@ body,
   transform: translateX(24px);
 }
 
-/* WVault Constellation Background */
-.wvault-constellation-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background:
-    radial-gradient(ellipse 100% 100% at 50% 50%, transparent 0%, var(--void-black) 100%),
-    radial-gradient(circle at 20% 30%, rgba(0, 217, 255, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(0, 217, 255, 0.03) 0%, transparent 60%);
-}
-
-/* WVault Star Field */
-.wvault-stars {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background-image:
-    radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.3), transparent),
-    radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.2), transparent),
-    radial-gradient(1px 1px at 50px 90px, rgba(255, 255, 255, 0.3), transparent),
-    radial-gradient(2px 2px at 130px 80px, rgba(255, 255, 255, 0.2), transparent),
-    radial-gradient(1px 1px at 200px 150px, rgba(255, 255, 255, 0.3), transparent),
-    radial-gradient(2px 2px at 300px 200px, rgba(255, 255, 255, 0.2), transparent);
-  background-repeat: repeat;
-  background-size: 400px 300px;
-  animation: starTwinkle 4s ease-in-out infinite;
-}
-
-/* WVault Section Cards (Planets) */
 .wvault-planet-card {
-  background: linear-gradient(135deg,
-      rgba(255, 255, 255, 0.05) 0%,
-      rgba(255, 255, 255, 0.02) 100%);
-  border: 1px solid rgba(0, 217, 255, 0.1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid rgba(201, 103, 232, 0.08);
   border-radius: var(--radius-xl);
   backdrop-filter: blur(24px) saturate(160%);
-  transition: all var(--transition-bounce);
+  transition: all var(--transition-spring);
   position: relative;
   overflow: hidden;
 }
@@ -876,123 +347,71 @@ body,
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg,
-      rgba(0, 217, 255, 0.05) 0%,
-      transparent 50%,
-      rgba(139, 92, 246, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(250, 147, 250, 0.04) 0%, transparent 50%, rgba(152, 58, 214, 0.04) 100%);
   opacity: 0;
   transition: opacity var(--transition-base);
 }
 
 .wvault-planet-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(0, 217, 255, 0.3);
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    0 0 40px rgba(0, 217, 255, 0.1);
+  border-color: rgba(201, 103, 232, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(201, 103, 232, 0.08);
 }
 
-.wvault-planet-card:hover::before {
-  opacity: 1;
-}
+.wvault-planet-card:hover::before { opacity: 1; }
 
-/* WVault Lock State - Red Dwarf Star */
-.wvault-locked {
-  position: relative;
-}
-
-.wvault-locked::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center,
-      rgba(255, 45, 85, 0.2) 0%,
-      transparent 70%);
-  animation: constellationPulse 2s ease-in-out infinite;
-  pointer-events: none;
-}
-
-/* WVault Success Toast - Aurora Green */
 .wvault-toast-success {
-  background: linear-gradient(135deg,
-      rgba(0, 230, 118, 0.15) 0%,
-      rgba(0, 230, 118, 0.05) 100%) !important;
-  border-color: rgba(0, 230, 118, 0.3) !important;
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.12) 0%, rgba(52, 211, 153, 0.04) 100%) !important;
+  border-color: rgba(52, 211, 153, 0.25) !important;
 }
 
-/* WVault Gradient Text */
-.wvault-gradient-text {
-  background: linear-gradient(135deg,
-      var(--wormhole-teal) 0%,
-      var(--nebula-purple) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+@keyframes constellationPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
 }
 
-/* WVault Glow Effects */
-.wvault-glow-teal {
-  box-shadow: 0 0 40px rgba(0, 217, 255, 0.3);
+@keyframes auroraWave {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.wvault-glow-purple {
-  box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
-}
+.animate-constellation { animation: constellationPulse 3s ease-in-out infinite; }
+.animate-wormhole { animation: wormholeSpin 20s linear infinite; }
+.animate-twinkle { animation: starTwinkle 2s ease-in-out infinite; }
 
-.wvault-glow-red {
-  box-shadow: 0 0 40px rgba(255, 45, 85, 0.3);
-}
-
-/* Animation Classes */
-.animate-constellation {
-  animation: constellationPulse 3s ease-in-out infinite;
-}
-
-.animate-wormhole {
-  animation: wormholeSpin 20s linear infinite;
-}
-
-.animate-aurora {
-  background-size: 200% 200%;
-  animation: auroraWave 8s ease infinite;
-}
-
-.animate-twinkle {
-  animation: starTwinkle 2s ease-in-out infinite;
-}
-
-/* Gaming Vault Animations */
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.animate-slide-up {
-  animation: slideUp 0.3s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Mobile-specific overlay animation */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+.animate-slide-up { animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.animate-slide-down { animation: slideDown 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.animate-pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
+.animate-float { animation: float 6s ease-in-out infinite; }
+
 @media (max-width: 640px) {
   .animate-slide-up {
     animation: slideUpMobile 0.3s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
   }
-
   @keyframes slideUpMobile {
-    from {
-      opacity: 0;
-      transform: translateY(100%);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(100%); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }
