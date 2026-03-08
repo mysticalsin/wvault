@@ -212,7 +212,7 @@ export default function MediaGallery() {
 
                 <button
                     onClick={handleImportFolder}
-                    className="mt-2 w-full py-2 bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-500/30 rounded-lg text-xs text-indigo-300 hover:text-white transition-colors flex items-center justify-center gap-2 font-bold"
+                    className="mt-2 w-full py-2 bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/30 rounded-lg text-xs text-purple-300 hover:text-white transition-colors flex items-center justify-center gap-2 font-bold"
                 >
                     <Folder className="w-3 h-3" /> Import Folder
                 </button>

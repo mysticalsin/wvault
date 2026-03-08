@@ -147,7 +147,7 @@
 }
 
 .input-interactive:focus {
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    box-shadow: 0 0 0 3px rgba(201, 103, 232, 0.15);
 }
 
 /* Label Float Animation */
@@ -172,7 +172,7 @@
 .input-wrapper-floating input:not(:placeholder-shown) + label {
     top: 8px;
     font-size: 12px;
-    color: rgba(99, 102, 241, 0.8);
+    color: rgba(201, 103, 232, 0.8);
 }
 
 /* Password Strength: Bar Animation */
@@ -410,8 +410,8 @@ html {
 
 /* Focus Ring Animation */
 @keyframes focusPulse {
-    0%, 100% { box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5); }
-    50% { box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.3); }
+    0%, 100% { box-shadow: 0 0 0 2px rgba(201, 103, 232, 0.5); }
+    50% { box-shadow: 0 0 0 4px rgba(201, 103, 232, 0.3); }
 }
 
 .focus-ring-animated:focus-visible {

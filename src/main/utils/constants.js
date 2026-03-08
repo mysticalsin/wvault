@@ -63,14 +63,14 @@ const DEFAULT_SECTION_SETTINGS = {
     cards: true
 };
 
-// Theme definitions
+// Aurora Glassmorphism accent definitions
 const THEMES = [
-    { id: 'indigo', name: 'Indigo', color: '99 102 241', hex: '#6366f1', accent: 'indigo' },
-    { id: 'cyan', name: 'Ocean', color: '6 182 212', hex: '#06b6d4', accent: 'cyan' },
-    { id: 'emerald', name: 'Emerald', color: '16 185 129', hex: '#10b981', accent: 'emerald' },
+    { id: 'orchid', name: 'Orchid', color: '201 103 232', hex: '#C967E8', accent: 'purple' },
+    { id: 'bloom', name: 'Pink Bloom', color: '250 147 250', hex: '#FA93FA', accent: 'fuchsia' },
+    { id: 'violet', name: 'Deep Violet', color: '152 58 214', hex: '#983AD6', accent: 'violet' },
     { id: 'rose', name: 'Rose', color: '244 63 94', hex: '#f43f5e', accent: 'rose' },
+    { id: 'emerald', name: 'Emerald', color: '16 185 129', hex: '#10b981', accent: 'emerald' },
     { id: 'amber', name: 'Amber', color: '245 158 11', hex: '#f59e0b', accent: 'amber' },
-    { id: 'violet', name: 'Violet', color: '139 92 246', hex: '#8b5cf6', accent: 'violet' },
 ];
 
 // Common password patterns to reject

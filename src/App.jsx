@@ -127,11 +127,14 @@ export default function App() {
         localStorage.removeItem('wvault-user-name');
         localStorage.removeItem('glassvault-user-name');
 
-        // Restore Theme
-        const savedTheme = localStorage.getItem('wvault-theme') || localStorage.getItem('glassvault-theme');
-        if (savedTheme) {
-            document.documentElement.style.setProperty('--accent', savedTheme);
-            document.documentElement.style.setProperty('--accent-glow', `rgba(${savedTheme}, 0.25)`);
+        // Clean stale theme keys — accent is now set via CSS design tokens
+        localStorage.removeItem('wvault-theme');
+        localStorage.removeItem('glassvault-theme');
+        localStorage.removeItem('glassvault-theme-id');
+        // Migrate old theme IDs to aurora defaults
+        const oldThemeId = localStorage.getItem('wvault-theme-id');
+        if (oldThemeId && !['orchid', 'bloom', 'violet', 'rose', 'emerald', 'amber'].includes(oldThemeId)) {
+            localStorage.removeItem('wvault-theme-id');
         }
 
         const handleKeyDown = (e) => {

@@ -11,7 +11,7 @@ const EVENT_TYPES = {
     UNLOCK: { icon: Unlock, color: 'text-blue-400', bg: 'bg-blue-400/10', label: 'Vault Unlocked' },
     BREACH_ATTEMPT: { icon: AlertTriangle, color: 'text-red-500', bg: 'bg-red-500/10', label: 'Breach Attempt' },
     SECTION_ACCESS: { icon: Eye, color: 'text-purple-400', bg: 'bg-purple-400/10', label: 'Section Access' },
-    PASSWORD_CHANGE: { icon: FileText, color: 'text-cyan-400', bg: 'bg-cyan-400/10', label: 'Password Changed' },
+    PASSWORD_CHANGE: { icon: FileText, color: 'text-fuchsia-400', bg: 'bg-fuchsia-400/10', label: 'Password Changed' },
 };
 
 // Calculate hash for blockchain-style chaining
@@ -117,8 +117,8 @@ export default function Observatory() {
             {/* Observatory Header */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center border border-indigo-400/20">
-                        <Telescope className="w-5 h-5 text-indigo-300" />
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-fuchsia-500/20 to-purple-500/20 flex items-center justify-center border border-purple-400/20">
+                        <Telescope className="w-5 h-5 text-purple-300" />
                     </div>
                     <div>
                         <h3 className="text-lg font-semibold text-primary">Observatory</h3>

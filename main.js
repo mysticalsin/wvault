@@ -19,17 +19,6 @@ const fs = require('fs');
 const crypto = require('crypto');
 const os = require('os');
 
-// DEBUG: Log file for troubleshooting
-const _logPath = path.join(os.homedir(), 'wvault-debug.log');
-function debugLog(msg) {
-    const line = `[${new Date().toISOString()}] ${msg}\n`;
-    try { fs.appendFileSync(_logPath, line); } catch(e) {}
-    console.log(msg);
-}
-// Clear old log on fresh start
-try { fs.writeFileSync(_logPath, `=== WVault Debug Log ${new Date().toISOString()} ===\n`); } catch(e) {}
-debugLog('Main process starting...');
-
 // Import modular components
 const {
     SECURITY,
@@ -1879,38 +1868,24 @@ function createWindow() {
     });
 
     // Load the app
-    debugLog('NODE_ENV=' + (process.env.NODE_ENV || 'undefined'));
     const distPath = path.join(__dirname, 'dist', 'index.html');
-    debugLog('dist exists=' + fs.existsSync(distPath) + ' path=' + distPath);
 
     if (process.env.NODE_ENV === 'development') {
-        debugLog('Loading dev URL...');
         state.mainWindow.loadURL('http://localhost:5173');
     } else {
-        debugLog('Loading dist/index.html...');
         state.mainWindow.loadFile(distPath);
     }
 
-    // Log ALL renderer messages to debug file
+    // Crash recovery listeners
     state.mainWindow.webContents.on('render-process-gone', (event, details) => {
-        debugLog('[CRASH] Render process gone: ' + details.reason + ' exit=' + details.exitCode);
+        console.error('[WVault] Render process gone:', details.reason, 'exit=' + details.exitCode);
     });
     state.mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription, validatedURL) => {
-        debugLog('[LOAD-FAIL] code=' + errorCode + ' desc=' + errorDescription + ' url=' + validatedURL);
-    });
-    state.mainWindow.webContents.on('did-finish-load', () => {
-        debugLog('[LOADED] Page finished loading successfully');
-    });
-    state.mainWindow.webContents.on('console-message', (event, level, message) => {
-        // Log ALL console messages (0=verbose, 1=info, 2=warning, 3=error)
-        const labels = ['VERBOSE', 'INFO', 'WARN', 'ERROR'];
-        debugLog('[RENDERER/' + (labels[level]||level) + '] ' + message);
+        console.error('[WVault] Load failed:', errorCode, errorDescription, validatedURL);
     });
 
     state.mainWindow.once('ready-to-show', () => {
-        debugLog('[WINDOW] ready-to-show fired, showing window');
         state.mainWindow.show();
-        state.mainWindow.webContents.openDevTools();
     });
 
     // Handle external links

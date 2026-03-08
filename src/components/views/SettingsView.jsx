@@ -5,21 +5,21 @@ import {
     LayoutGrid, RefreshCw, Settings as SettingsIcon, CreditCard
 } from 'lucide-react';
 
-// BUG FIX 1: Added themes configuration with RGB colors for CSS variables
+// Aurora Glassmorphism theme accents
 const THEMES = [
-    { id: 'indigo', name: 'Indigo', color: '99 102 241', hex: '#6366f1' },
-    { id: 'cyan', name: 'Ocean', color: '6 182 212', hex: '#06b6d4' },
-    { id: 'emerald', name: 'Emerald', color: '16 185 129', hex: '#10b981' },
+    { id: 'orchid', name: 'Orchid', color: '201 103 232', hex: '#C967E8' },
+    { id: 'bloom', name: 'Pink Bloom', color: '250 147 250', hex: '#FA93FA' },
+    { id: 'violet', name: 'Deep Violet', color: '152 58 214', hex: '#983AD6' },
     { id: 'rose', name: 'Rose', color: '244 63 94', hex: '#f43f5e' },
+    { id: 'emerald', name: 'Emerald', color: '16 185 129', hex: '#10b981' },
     { id: 'amber', name: 'Amber', color: '245 158 11', hex: '#f59e0b' },
-    { id: 'violet', name: 'Violet', color: '139 92 246', hex: '#8b5cf6' },
 ];
 
 export default function SettingsView({ onExport, onDeleteAll, onEmptyTrash, onSetPin, stats }) {
-    // BUG FIX 1: Load saved theme from localStorage on mount - WVAULT MIGRATION
+    // Load saved accent from localStorage on mount — default to Orchid (aurora primary)
     const [theme, setTheme] = useState(() => {
-        const savedTheme = localStorage.getItem('wvault-theme-id') || localStorage.getItem('glassvault-theme-id');
-        return savedTheme || 'indigo';
+        const savedTheme = localStorage.getItem('wvault-theme-id');
+        return savedTheme || 'orchid';
     });
     const [pin, setPin] = useState('');
     const [resetConfirm, setResetConfirm] = useState(0);
@@ -83,9 +83,9 @@ export default function SettingsView({ onExport, onDeleteAll, onEmptyTrash, onSe
         window.dispatchEvent(new Event('wvault-sections-changed'));
     };
 
-    // BUG FIX 1: Apply theme on mount to sync with saved preference - WVAULT MIGRATION
+    // Apply saved accent on mount
     useEffect(() => {
-        const savedThemeId = localStorage.getItem('wvault-theme-id') || localStorage.getItem('glassvault-theme-id');
+        const savedThemeId = localStorage.getItem('wvault-theme-id');
         if (savedThemeId) {
             const themeConfig = THEMES.find(t => t.id === savedThemeId);
             if (themeConfig) {
@@ -94,20 +94,18 @@ export default function SettingsView({ onExport, onDeleteAll, onEmptyTrash, onSe
         }
     }, []);
 
-    // BUG FIX 1: Extract theme application logic for reusability
+    // Apply accent color to DOM
     const applyThemeToDOM = (t) => {
         document.documentElement.style.setProperty('--accent', t.color);
         document.documentElement.style.setProperty('--accent-glow', `rgba(${t.color}, 0.25)`);
-        // Also set CSS rgb variables if used elsewhere
         document.documentElement.style.setProperty('--accent-rgb', t.color);
     };
 
-    // BUG FIX 1: Apply theme and persist to localStorage - WVAULT MIGRATION
+    // Apply accent and persist
     const applyTheme = (t) => {
         setTheme(t.id);
         applyThemeToDOM(t);
         localStorage.setItem('wvault-theme-id', t.id);
-        localStorage.setItem('wvault-theme', t.color);
     };
 
     // BUG FIX 5: Added loading state and error handling for PIN setting
